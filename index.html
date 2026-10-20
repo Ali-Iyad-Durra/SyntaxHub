@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1117" />
+    <meta
+      name="description"
+      content="SyntaxHub — a clean, JSON-driven library of code snippets across C#, C++, JavaScript, TypeScript, Python, Java, PHP, SQL and HTML/CSS."
+    />
+    <title>SyntaxHub — Code Snippet Library</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Syntax highlighting (Highlight.js) — auto-detects each snippet's language -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#snippets" data-i18n="skipToContent"
+      >Skip to content</a
+    >
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="SyntaxHub — Home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="8 6 3 12 8 18"></polyline>
+              <polyline points="16 6 21 12 16 18"></polyline>
+              <line x1="13.5" y1="4" x2="10.5" y2="20"></line>
+            </svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-title"
+              >Syntax<span class="brand-accent">Hub</span></span
+            >
+            <span class="brand-badge" data-i18n="designedBy"
+              >Designed &amp; Developed by Ali Durra</span
+            >
+          </span>
+        </a>
+
+        <div class="header-actions">
+          <div
+            class="font-control"
+            role="group"
+            aria-label="Code font size"
+            data-i18n-aria="fontSize"
+          >
+            <button
+              type="button"
+              class="font-btn"
+              id="fontDecrease"
+              aria-label="Decrease code font size"
+              data-i18n-aria="fontDecrease"
+              title="Decrease code font size"
+            >
+              A<sup>−</sup>
+            </button>
+            <span class="font-value" id="fontValue" aria-live="polite">100%</span>
+            <button
+              type="button"
+              class="font-btn"
+              id="fontIncrease"
+              aria-label="Increase code font size"
+              data-i18n-aria="fontIncrease"
+              title="Increase code font size"
+            >
+              A<sup>+</sup>
+            </button>
+          </div>
+
+          <div
+            class="lang-switch"
+            role="group"
+            aria-label="Language / اللغة"
+            data-i18n-aria="languageSwitcher"
+          >
+            <button
+              type="button"
+              class="lang-btn is-active"
+              data-lang="en"
+              aria-pressed="true"
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              class="lang-btn"
+              data-lang="ar"
+              aria-pressed="false"
+            >
+              AR
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ HERO / SEARCH ============ -->
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <h1 class="hero-title" data-i18n="heroTitle">
+            Find the right snippet, fast.
+          </h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">
+            A curated, copy-ready library of code patterns across nine languages
+            — built for comfort, speed and clarity.
+          </p>
+
+          <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input
+              id="search"
+              class="search-input"
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Search titles, descriptions or code…"
+              aria-label="Search snippets"
+              data-i18n-placeholder="searchPlaceholder"
+              data-i18n-aria="searchAria"
+            />
+            <kbd class="search-hint" aria-hidden="true">Ctrl K</kbd>
+            <button
+              type="button"
+              id="clearSearch"
+              class="search-clear"
+              aria-label="Clear search"
+              data-i18n-aria="clearSearch"
+              hidden
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <div class="stats" id="stats" aria-live="polite">
+            <span class="stat"
+              ><strong id="visibleCount">0</strong>
+              <span data-i18n="statSnippets">snippets</span></span
+            >
+            <span class="stat-dot" aria-hidden="true"></span>
+            <span class="stat"
+              ><strong id="languageCount">0</strong>
+              <span data-i18n="statLanguages">languages</span></span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FILTERS ============ -->
+      <nav
+        class="container filter-bar"
+        id="filterBar"
+        aria-label="Language filters"
+        data-i18n-aria="filterAria"
+      >
+        <!-- Tabs are generated dynamically from data/snippets.json -->
+      </nav>
+
+      <!-- ============ SNIPPETS ============ -->
+      <section
+        class="container section"
+        id="snippets"
+        aria-labelledby="snippetsHeading"
+      >
+        <h2 class="sr-only" id="snippetsHeading" data-i18n="snippetsHeading">
+          Code snippets
+        </h2>
+
+        <div class="snippets-grid" id="snippetsGrid" aria-live="polite"></div>
+
+        <div class="state empty" id="emptyState" hidden>
+          <div class="state-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </div>
+          <p class="state-title" data-i18n="emptyTitle">No snippets found</p>
+          <p class="state-text" data-i18n="emptyText">
+            Try a different keyword or choose another language tab.
+          </p>
+          <button
+            type="button"
+            class="btn btn-ghost"
+            id="resetFilters"
+            data-i18n="resetFilters"
+          >
+            Reset filters
+          </button>
+        </div>
+
+        <div class="state error" id="errorState" hidden>
+          <p class="state-title" data-i18n="errorTitle">
+            Couldn’t load the snippet library
+          </p>
+          <p class="state-text" data-i18n="errorText">
+            The data file could not be fetched. Make sure
+            <code>data/snippets.json</code> exists and the page is served over
+            HTTP (for example <code>python -m http.server</code>).
+          </p>
+          <button
+            type="button"
+            class="btn btn-ghost"
+            id="retryLoad"
+            data-i18n="retry"
+          >
+            Retry
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <!-- Single clean copyright line — no navigation, no placeholders -->
+    <footer class="site-footer">
+      <p class="copyright" data-i18n="footer">&copy; All Rights Reserved | Designed &amp; Developed by Ali Durra</p>
+    </footer>
+
+    <!-- ============ MODAL ============ -->
+    <div class="modal" id="modal" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div
+        class="modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <header class="modal-header">
+          <div class="modal-meta">
+            <span class="lang-chip" id="modalLang"></span>
+          </div>
+          <h3 class="modal-title" id="modalTitle"></h3>
+          <p class="modal-desc" id="modalDesc"></p>
+          <button
+            type="button"
+            class="modal-close"
+            aria-label="Close"
+            data-i18n-aria="close"
+            data-close-modal
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </header>
+        <div class="modal-body">
+          <div class="code-box modal-code">
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy
+              aria-label="Copy code"
+              data-i18n-aria="copyAria"
+            >
+              <svg
+                class="icon-copy"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                <path d="M5 15V5a2 2 0 0 1 2-2h10"></path>
+              </svg>
+              <span class="copy-label" data-i18n="copy">Copy</span>
+            </button>
+            <pre><code dir="ltr" id="modalCode"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TOAST ============ -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span id="toastText"></span>
+    </div>
+
+    <noscript>
+      <p style="padding: 2rem; text-align: center; color: #c9d1d9">
+        SyntaxHub requires JavaScript to load and filter snippets.
+      </p>
+    </noscript>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

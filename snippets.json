@@ -1,0 +1,694 @@
+{
+  "languages": [
+    { "id": "csharp", "name": "C#", "label": "C#", "icon": "C#" },
+    { "id": "cpp", "name": "C++", "label": "C++", "icon": "C++" },
+    { "id": "javascript", "name": "JavaScript", "label": "JavaScript", "icon": "JS" },
+    { "id": "typescript", "name": "TypeScript", "label": "TypeScript", "icon": "TS" },
+    { "id": "python", "name": "Python", "label": "Python", "icon": "PY" },
+    { "id": "java", "name": "Java", "label": "Java", "icon": "JV" },
+    { "id": "php", "name": "PHP", "label": "PHP", "icon": "PHP" },
+    { "id": "sql", "name": "SQL", "label": "SQL", "icon": "SQL" },
+    { "id": "htmlcss", "name": "HTML/CSS", "label": "HTML/CSS", "icon": "H/C" }
+  ],
+  "topics": {
+    "core": { "en": "Syntax & Output", "ar": "الصيغة الأساسية والإخراج" },
+    "control": { "en": "Control Flow", "ar": "التحكم في المسار" },
+    "loops": { "en": "Loops & Iteration", "ar": "الحلقات والتكرار" },
+    "functions": { "en": "Functions & Methods", "ar": "الدوال والطرق" },
+    "idioms": { "en": "Modern Idioms", "ar": "أساليب حديثة" }
+  },
+  "snippets": [
+    {
+      "id": "cs-core-syntax",
+      "language": "csharp",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "C# Core Syntax: Variables, Types & Output", "ar": "أساسيات C#: المتغيرات والأنواع والطباعة" },
+      "description": {
+        "en": "Declare variables with inferred and explicit types, print formatted output to the console, and read a value back from the user.",
+        "ar": "عرّف المتغيرات بأنواع مستنتجة وصريحة، واطبع مخرجات منسّقة في الطرفية، واقرأ قيمة من المستخدم."
+      },
+      "code": "using System;\n\n// Variables with explicit and inferred types\nstring name = \"Ali\";\nint age = 25;\ndouble height = 1.78;\nbool isDeveloper = true;\nvar city = \"Amman\";          // compiler infers string\nconst double Pi = 3.14159;   // compile-time constant\n\n// Data types and formatting\nConsole.WriteLine($\"Name: {name}, Age: {age}\");\nConsole.WriteLine($\"Height: {height:F2} m, City: {city}\");\nConsole.WriteLine($\"Pi: {Pi}, Developer: {isDeveloper}\");\n\n// Reading input\nConsole.Write(\"Your favourite language: \");\nstring? answer = Console.ReadLine();\nConsole.WriteLine($\"You picked {answer ?? \"nothing\"}.\");\n\n// Safe conversion\nif (int.TryParse(\"42\", out int number))\n    Console.WriteLine($\"Parsed: {number * 2}\");"
+    },
+    {
+      "id": "cs-control-flow",
+      "language": "csharp",
+      "topic": "Control Flow",
+      "title": { "en": "C# If / Else & Switch Expressions", "ar": "الشروط If / Else وتعبيرات Switch في C#" },
+      "description": {
+        "en": "Branch with if/else chains, the ternary operator, classic and pattern-matching switch, and return values from switch expressions.",
+        "ar": "استخدم الشروط if/else والعامل الثلاثي وswitch التقليدي والمطابقة النمطية، وأعد القيم من تعبيرات switch."
+      },
+      "code": "using System;\n\nint score = 87;\n\n// if / else if / else\nif (score >= 90)\n    Console.WriteLine(\"Excellent\");\nelse if (score >= 75)\n    Console.WriteLine(\"Good\");\nelse\n    Console.WriteLine(\"Needs improvement\");\n\n// Ternary operator\nstring status = score >= 50 ? \"Pass\" : \"Fail\";\n\n// switch statement (classic + range patterns)\nstring grade;\nswitch (score)\n{\n    case >= 90:\n        grade = \"A\";\n        break;\n    case >= 80:\n        grade = \"B\";\n        break;\n    default:\n        grade = \"C\";\n        break;\n}\n\n// switch expression returning a value\nstring message = grade switch\n{\n    \"A\" => \"Outstanding work!\",\n    \"B\" => \"Well done!\",\n    _   => \"Keep practising.\"\n};\n\nConsole.WriteLine($\"{status} — Grade {grade}: {message}\");"
+    },
+    {
+      "id": "cs-loops",
+      "language": "csharp",
+      "topic": "Loops & Iteration",
+      "title": { "en": "C# Loops: For, While, Do-While & Foreach", "ar": "الحلقات في C#: For و While و Do-While و Foreach" },
+      "description": {
+        "en": "Iterate with every core loop type, use break/continue, index collections, and walk a dictionary.",
+        "ar": "كرّر بكل أنواع الحلقات الأساسية، واستخدم break/continue، وافهرس المجموعات، وامرّ على قاموس."
+      },
+      "code": "using System;\nusing System.Collections.Generic;\n\n// for loop with index\nfor (int i = 0; i < 5; i++)\n{\n    if (i == 2) continue;          // skip 2\n    Console.Write($\"{i} \");\n}\nConsole.WriteLine();\n\n// while loop\nint countdown = 3;\nwhile (countdown > 0)\n{\n    Console.WriteLine($\"T-minus {countdown}\");\n    countdown--;\n}\n\n// do-while runs at least once\nint attempts = 0;\ndo\n{\n    attempts++;\n    Console.WriteLine($\"Attempt {attempts}\");\n} while (attempts < 2);\n\n// foreach over a list\nvar languages = new List<string> { \"C#\", \"C++\", \"SQL\" };\nforeach (string language in languages)\n    Console.WriteLine(language);\n\n// foreach over a dictionary\nvar prices = new Dictionary<string, decimal>\n{\n    [\"Keyboard\"] = 49.99m,\n    [\"Monitor\"] = 199.00m\n};\n\nforeach (var (product, price) in prices)\n    Console.WriteLine($\"{product}: {price:C}\");"
+    },
+    {
+      "id": "cs-functions",
+      "language": "csharp",
+      "topic": "Functions & Methods",
+      "title": { "en": "C# Methods: Parameters, Defaults & Returns", "ar": "طرق C#: المعاملات والقيم الافتراضية والإرجاع" },
+      "description": {
+        "en": "Define typed methods with default and named arguments, optional/nullable returns, expression bodies, and out parameters.",
+        "ar": "عرّف طرقًا ذات أنواع مع معاملات افتراضية ومسمّاة، وإرجاع اختياري أو قابل للعدم، وأجسام تعبيرية، ومعاملات out."
+      },
+      "code": "using System;\n\n// Classic method with a return type\nstatic int Add(int a, int b) => a + b;\n\n// Default and named arguments\nstatic string Greet(string name, string greeting = \"Hello\")\n    => $\"{greeting}, {name}!\";\n\n// Nullable return type\nstatic string? FindUser(int id)\n    => id > 0 ? $\"User #{id}\" : null;\n\n// Multiple results with tuples\nstatic (double Min, double Max) Range(int[] values)\n{\n    double min = values.Min();\n    double max = values.Max();\n    return (min, max);\n}\n\n// out parameter for TryParse-style methods\nstatic bool TryHalf(int value, out int half)\n{\n    if (value % 2 != 0)\n    {\n        half = 0;\n        return false;\n    }\n    half = value / 2;\n    return true;\n}\n\nConsole.WriteLine(Add(2, 3));\nConsole.WriteLine(Greet(\"Ali\", greeting: \"Welcome\"));\n\nvar user = FindUser(7);\nConsole.WriteLine(user ?? \"No user found\");\n\nvar (min, max) = Range(new[] { 4, 9, 1, 12 });\nConsole.WriteLine($\"Range: {min} – {max}\");\n\nif (TryHalf(10, out int half))\n    Console.WriteLine($\"Half: {half}\");"
+    },
+    {
+      "id": "cs-linq-query",
+      "language": "csharp",
+      "topic": "Modern Idioms",
+      "title": { "en": "LINQ Query with Filtering & Projection", "ar": "استعلام LINQ مع التصفية والإسقاط" },
+      "description": {
+        "en": "Use LINQ method syntax to filter a list of products, order results, and project them into a lightweight anonymous type.",
+        "ar": "استخدم صيغة الدوال في LINQ لتصفية قائمة منتجات وترتيب النتائج وتحويلها إلى نوع مجهول خفيف."
+      },
+      "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\n\npublic record Product(string Name, string Category, decimal Price);\n\npublic static class Catalog\n{\n    public static IEnumerable<object> AffordableElectronics(IEnumerable<Product> products)\n    {\n        return products\n            .Where(p => p.Category == \"Electronics\" && p.Price < 500m)\n            .OrderBy(p => p.Price)\n            .Select(p => new { p.Name, p.Price })\n            .ToList();\n    }\n}\n\n// Usage\nvar items = new List<Product>\n{\n    new(\"Keyboard\", \"Electronics\", 49.99m),\n    new(\"Monitor\", \"Electronics\", 199.00m),\n    new(\"Desk\", \"Furniture\", 320.00m)\n};\n\nforeach (var item in Catalog.AffordableElectronics(items))\n    Console.WriteLine(item);"
+    },
+    {
+      "id": "cs-async-await",
+      "language": "csharp",
+      "topic": "Modern Idioms",
+      "title": { "en": "Async / Await Data Fetching", "ar": "جلب البيانات باستخدام Async / Await" },
+      "description": {
+        "en": "Download JSON data asynchronously with HttpClient, handle cancellation and errors, and deserialize the response safely.",
+        "ar": "تنزيل بيانات JSON بشكل غير متزامن باستخدام HttpClient، مع التعامل مع الإلغاء والأخطاء وإلغاء تسلسل الاستجابة بأمان."
+      },
+      "code": "using System;\nusing System.Net.Http;\nusing System.Net.Http.Json;\nusing System.Threading;\nusing System.Threading.Tasks;\n\npublic class Todo\n{\n    public int Id { get; set; }\n    public string Title { get; set; } = string.Empty;\n    public bool Completed { get; set; }\n}\n\npublic static class TodoClient\n{\n    private static readonly HttpClient Http = new()\n    {\n        BaseAddress = new Uri(\"https://jsonplaceholder.typicode.com/\")\n    };\n\n    public static async Task<Todo?> GetTodoAsync(int id, CancellationToken ct = default)\n    {\n        try\n        {\n            var todo = await Http.GetFromJsonAsync<Todo>($\"todos/{id}\", ct);\n            Console.WriteLine($\"Fetched: {todo?.Title}\");\n            return todo;\n        }\n        catch (OperationCanceledException)\n        {\n            Console.WriteLine(\"Request cancelled.\");\n            return null;\n        }\n        catch (HttpRequestException ex)\n        {\n            Console.WriteLine($\"Network error: {ex.Message}\");\n            return null;\n        }\n    }\n}\n\nawait TodoClient.GetTodoAsync(1);"
+    },
+    {
+      "id": "cs-singleton",
+      "language": "csharp",
+      "topic": "Modern Idioms",
+      "title": { "en": "Thread-Safe Singleton Pattern", "ar": "نمط Singleton الآمن للخيوط المتعددة" },
+      "description": {
+        "en": "A lazy, thread-safe singleton implemented with Lazy<T> so the instance is created exactly once on first access.",
+        "ar": "نمط Singleton كسول وآمن للخيوط المتعددة باستخدام Lazy<T> بحيث يُنشأ الكائن مرة واحدة فقط عند أول استخدام."
+      },
+      "code": "using System;\n\npublic sealed class AppConfig\n{\n    private static readonly Lazy<AppConfig> _instance =\n        new(() => new AppConfig(), isThreadSafe: true);\n\n    public static AppConfig Instance => _instance.Value;\n\n    public string ConnectionString { get; private set; }\n\n    private AppConfig()\n    {\n        ConnectionString = \"Server=localhost;Database=app;Trusted_Connection=True;\";\n    }\n\n    public void Initialize(string connectionString)\n    {\n        ConnectionString = connectionString ??\n            throw new ArgumentNullException(nameof(connectionString));\n    }\n}\n\n// Usage\nvar config = AppConfig.Instance;\nConsole.WriteLine(config.ConnectionString);"
+    },
+    {
+      "id": "cs-list-filter",
+      "language": "csharp",
+      "topic": "Modern Idioms",
+      "title": { "en": "List Filtering & Pagination", "ar": "تصفية القوائم والترقيم الصفحي" },
+      "description": {
+        "en": "Search, filter, sort, and paginate an in-memory list with clean, composable LINQ expressions.",
+        "ar": "ابحث وصفِّ ورتّب صفحات قائمة في الذاكرة باستخدام تعبيرات LINQ نظيفة وقابلة للتركيب."
+      },
+      "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\n\npublic static class Paging\n{\n    public static List<T> Page<T>(\n        IEnumerable<T> source,\n        int pageNumber,\n        int pageSize = 10)\n    {\n        if (pageNumber < 1) pageNumber = 1;\n\n        return source\n            .Skip((pageNumber - 1) * pageSize)\n            .Take(pageSize)\n            .ToList();\n    }\n}\n\nvar users = new[]\n{\n    \"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Ethan\",\n    \"Fatima\", \"George\", \"Hana\", \"Ivan\", \"Jana\"\n};\n\nvar filtered = users\n    .Where(u => u.Length > 3)\n    .OrderBy(u => u, StringComparer.OrdinalIgnoreCase);\n\nvar pageTwo = Paging.Page(filtered, pageNumber: 2, pageSize: 3);\n\nConsole.WriteLine(string.Join(\", \", pageTwo));"
+    },
+    {
+      "id": "cpp-core-syntax",
+      "language": "cpp",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "C++ Core Syntax: Types & Console Output", "ar": "أساسيات C++: الأنواع والإخراج إلى الطرفية" },
+      "description": {
+        "en": "Declare fundamental types with modern brace initialization, use auto and constants, and print formatted output with std::cout.",
+        "ar": "عرّف الأنواع الأساسية بالتهيئة الحديثة بالأقواس، واستخدم auto والثوابت، واطبع مخرجات منسّقة بـ std::cout."
+      },
+      "code": "#include <iostream>\n#include <string>\n#include <iomanip>\n\nint main()\n{\n    // Fundamental data types\n    int age{ 25 };\n    double height{ 1.78 };\n    char initial{ 'A' };\n    bool isDeveloper{ true };\n    const double pi{ 3.14159 };\n\n    // auto lets the compiler deduce the type\n    auto city = std::string(\"Amman\");\n\n    std::cout << \"Name: \" << initial << \".\\n\";\n    std::cout << \"Age: \" << age << \" years\\n\";\n    std::cout << std::fixed << std::setprecision(2);\n    std::cout << \"Height: \" << height << \" m\\n\";\n    std::cout << \"City: \" << city << \", Pi: \" << pi << \"\\n\";\n    std::cout << \"Developer: \" << (isDeveloper ? \"yes\" : \"no\") << \"\\n\";\n\n    // Reading input\n    std::string language;\n    std::cout << \"Favourite language: \";\n    std::getline(std::cin, language);\n    std::cout << \"You picked \" << language << \"\\n\";\n\n    return 0;\n}"
+    },
+    {
+      "id": "cpp-control-flow",
+      "language": "cpp",
+      "topic": "Control Flow",
+      "title": { "en": "C++ If / Else & Switch", "ar": "الشروط If / Else و Switch في C++" },
+      "description": {
+        "en": "Branch with if/else chains, the ternary operator, and switch statements (remember the break!), plus the modern if-init form.",
+        "ar": "استخدم الشروط if/else والعامل الثلاثي وswitch (لا تنسَ break!) بالإضافة إلى صيغة if التهيئة الحديثة."
+      },
+      "code": "#include <iostream>\n\nint main()\n{\n    const int score = 87;\n\n    // if / else if / else\n    if (score >= 90)\n        std::cout << \"Excellent\\n\";\n    else if (score >= 75)\n        std::cout << \"Good\\n\";\n    else\n        std::cout << \"Needs improvement\\n\";\n\n    // Ternary operator\n    const char* status = (score >= 50) ? \"Pass\" : \"Fail\";\n\n    // switch on an integer\n    char grade = 'C';\n    switch (score / 10)\n    {\n        case 10:\n        case 9:\n            grade = 'A';\n            break;\n        case 8:\n            grade = 'B';\n            break;\n        case 7:\n            grade = 'C';\n            break;\n        default:\n            grade = 'F';\n            break;\n    }\n\n    // C++17 if with initializer\n    if (const int bonus = score % 2; bonus == 0)\n        std::cout << \"Even score\\n\";\n\n    std::cout << status << \" — Grade \" << grade << \"\\n\";\n    return 0;\n}"
+    },
+    {
+      "id": "cpp-loops",
+      "language": "cpp",
+      "topic": "Loops & Iteration",
+      "title": { "en": "C++ Loops: For, Range-For & While", "ar": "الحلقات في C++: For و Range-For و While" },
+      "description": {
+        "en": "Iterate the classic way with for/while/do-while and the modern range-based for, using break and continue.",
+        "ar": "كرّر بالطريقة الكلاسيكية عبر for/while/do-while وبالطريقة الحديثة range-based for مع break و continue."
+      },
+      "code": "#include <iostream>\n#include <vector>\n#include <array>\n\nint main()\n{\n    // Classic for loop\n    for (int i = 0; i < 5; ++i)\n    {\n        if (i == 2) continue;\n        std::cout << i << ' ';\n    }\n    std::cout << '\\n';\n\n    // while loop\n    int countdown = 3;\n    while (countdown > 0)\n    {\n        std::cout << \"T-minus \" << countdown << '\\n';\n        --countdown;\n    }\n\n    // do-while runs at least once\n    int attempts = 0;\n    do\n    {\n        ++attempts;\n        std::cout << \"Attempt \" << attempts << '\\n';\n    } while (attempts < 2);\n\n    // Range-based for loop (C++11)\n    std::vector<std::string> languages = { \"C++\", \"C#\", \"SQL\" };\n    for (const auto& language : languages)\n        std::cout << language << '\\n';\n\n    // Modify elements by reference\n    std::array<int, 4> numbers = { 1, 2, 3, 4 };\n    for (int& n : numbers)\n        n *= 10;\n\n    for (int n : numbers)\n        std::cout << n << ' ';\n    std::cout << '\\n';\n\n    return 0;\n}"
+    },
+    {
+      "id": "cpp-functions",
+      "language": "cpp",
+      "topic": "Functions & Methods",
+      "title": { "en": "C++ Functions: Defaults, Overloads & References", "ar": "دوال C++: القيم الافتراضية والتحميل الزائد والمراجع" },
+      "description": {
+        "en": "Write typed functions with default parameters and overloading, pass by reference, and return multiple values with std::tuple.",
+        "ar": "اكتب دوالًا ذات أنواع مع معاملات افتراضية وتحميل زائد، ومرّر بالمرجع، وأعد قيمًا متعددة بـ std::tuple."
+      },
+      "code": "#include <iostream>\n#include <string>\n#include <tuple>\n\n// Return type, parameters and default argument\nint add(int a, int b = 0)\n{\n    return a + b;\n}\n\n// Function overloading\ndouble add(double a, double b)\n{\n    return a + b;\n}\n\n// Pass by const reference (no copy)\nvoid greet(const std::string& name, const std::string& greeting = \"Hello\")\n{\n    std::cout << greeting << \", \" << name << \"!\\n\";\n}\n\n// Modify the caller's variable by reference\nvoid square(int& value)\n{\n    value *= value;\n}\n\n// Return several values\nstd::tuple<int, int> minMaxOf(int a, int b)\n{\n    return (a < b) ? std::make_tuple(a, b) : std::make_tuple(b, a);\n}\n\nint main()\n{\n    std::cout << add(2, 3) << '\\n';\n    std::cout << add(1.5, 2.25) << '\\n';\n    greet(\"Ali\");\n    greet(\"Sara\", \"Welcome\");\n\n    int n = 7;\n    square(n);\n    std::cout << \"Squared: \" << n << '\\n';\n\n    auto [low, high] = minMaxOf(9, 4);\n    std::cout << \"Min \" << low << \", Max \" << high << '\\n';\n\n    return 0;\n}"
+    },
+    {
+      "id": "cpp-pointers",
+      "language": "cpp",
+      "topic": "Modern Idioms",
+      "title": { "en": "Dynamic Memory & Pointers", "ar": "الذاكرة الديناميكية والمؤشرات" },
+      "description": {
+        "en": "Allocate arrays on the heap with new[], access them through pointers, and always release memory with delete[] — or let a smart pointer do it.",
+        "ar": "خصص مصفوفات على الكومة باستخدام new[]‎، وادخل إليها عبر المؤشرات، وحرّرها دائماً بـ delete[]‎ أو اترك ذلك للمؤشر الذكي."
+      },
+      "code": "#include <iostream>\n#include <memory>\n\nint main()\n{\n    const int size = 5;\n\n    // Allocate memory on the heap\n    int* numbers = new int[size];\n\n    for (int i = 0; i < size; ++i)\n        numbers[i] = i * i;\n\n    int* cursor = numbers;\n    for (int i = 0; i < size; ++i)\n        std::cout << *(cursor + i) << ' ';\n\n    std::cout << \"\\nAddress: \" << static_cast<void*>(numbers) << '\\n';\n\n    // Free the memory\n    delete[] numbers;\n    numbers = nullptr;\n\n    // The same idea, but exception-safe\n    auto safe = std::make_unique<int[]>(size);\n    safe[0] = 42;\n    std::cout << \"Safe: \" << safe[0] << '\\n';\n\n    return 0;\n}"
+    },
+    {
+      "id": "cpp-vector",
+      "language": "cpp",
+      "topic": "Modern Idioms",
+      "title": { "en": "STL Vectors: Insert, Sort, Erase", "ar": "متحركات STL: الإدراج والترتيب والحذف" },
+      "description": {
+        "en": "Work with std::vector to push elements, sort them in place, remove duplicates, and iterate with range-based loops.",
+        "ar": "استخدم std::vector لإضافة العناصر وترتيبها وحذف المكرر منها والتكرار عليها عبر حلقات النطاق."
+      },
+      "code": "#include <algorithm>\n#include <iostream>\n#include <vector>\n\nint main()\n{\n    std::vector<int> values = { 42, 7, 19, 7, 3, 88, 19 };\n\n    values.push_back(56);\n\n    std::sort(values.begin(), values.end());\n\n    values.erase(\n        std::unique(values.begin(), values.end()),\n        values.end());\n\n    for (const int value : values)\n        std::cout << value << ' ';\n\n    std::cout << \"\\nCount: \" << values.size() << '\\n';\n}\n// Output: 3 7 19 42 56 88"
+    },
+    {
+      "id": "cpp-smart-pointers",
+      "language": "cpp",
+      "topic": "Modern Idioms",
+      "title": { "en": "Smart Pointers (unique_ptr & shared_ptr)", "ar": "المؤشرات الذكية (unique_ptr و shared_ptr)" },
+      "description": {
+        "en": "Manage ownership automatically with std::unique_ptr for exclusive resources and std::shared_ptr for shared objects.",
+        "ar": "أدر الملكية تلقائيًا باستخدام std::unique_ptr للموارد الحصرية و std::shared_ptr للكائنات المشتركة."
+      },
+      "code": "#include <iostream>\n#include <memory>\n#include <string>\n\nclass Resource\n{\npublic:\n    explicit Resource(std::string name) : name_(std::move(name))\n    {\n        std::cout << \"Created \" << name_ << '\\n';\n    }\n    ~Resource() { std::cout << \"Destroyed \" << name_ << '\\n'; }\n\n    void use() const { std::cout << \"Using \" << name_ << '\\n'; }\n\nprivate:\n    std::string name_;\n};\n\nint main()\n{\n    auto exclusive = std::make_unique<Resource>(\"Unique\");\n    exclusive->use();\n\n    auto shared = std::make_shared<Resource>(\"Shared\");\n    {\n        auto copy = shared;           // ref count = 2\n        copy->use();\n        std::cout << \"Refs: \" << shared.use_count() << '\\n';\n    }\n\n    std::cout << \"Refs: \" << shared.use_count() << '\\n';\n    return 0;\n}"
+    },
+    {
+      "id": "js-core-syntax",
+      "language": "javascript",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "JavaScript Core Syntax: Variables & Output", "ar": "أساسيات JavaScript: المتغيرات والطباعة" },
+      "description": {
+        "en": "Declare with const/let, handle primitive types and template literals, check types, and print to the console or the page.",
+        "ar": "عرّف بـ const/let، وتعامل مع الأنواع الأولية والقوالب النصية، وافحص الأنواع، واطبع في الطرفية أو الصفحة."
+      },
+      "code": "// Variables: use const by default, let when reassigning\nconst name = \"Ali\";\nlet age = 25;\nvar legacy = \"avoid var\";   // function-scoped, legacy syntax\n\n// Primitive data types\nconst height = 1.78;          // number\nconst isDeveloper = true;     // boolean\nconst tags = [\"js\", \"web\"];    // array (object)\nconst user = { city: \"Amman\" }; // object\nconst empty = null;           // intentional absence\nlet pending;                  // undefined\n\n// Template literals\nconsole.log(`Name: ${name}, Age: ${age}`);\nconsole.log(\"Height:\", height, \"m | City:\", user.city);\n\n// Type checks\ntypeof name;        // \"string\"\ntypeof height;      // \"number\"\nArray.isArray(tags); // true\n\n// Printing to the page\ndocument.body.insertAdjacentHTML(\n  \"beforeend\",\n  `<p class=\"greeting\">Hello, ${name}!</p>`\n);"
+    },
+    {
+      "id": "js-control-flow",
+      "language": "javascript",
+      "topic": "Control Flow",
+      "title": { "en": "JavaScript If / Else, Switch & Optional Chaining", "ar": "الشروط If / Else و Switch والتسلسل الاختياري" },
+      "description": {
+        "en": "Use strict comparisons, logical operators, switch, the nullish coalescing operator, and optional chaining to guard nested values.",
+        "ar": "استخدم المقارنات الصارمة والعوامل المنطقية وswitch ومعامل التجميع الفارغ والتسلسل الاختياري لحماية القيم المتداخلة."
+      },
+      "code": "const score = 87;\n\n// if / else if / else — always prefer === over ==\nif (score >= 90) {\n  console.log(\"Excellent\");\n} else if (score >= 75) {\n  console.log(\"Good\");\n} else {\n  console.log(\"Needs improvement\");\n}\n\nconst status = score >= 50 ? \"Pass\" : \"Fail\";\n\n// switch with a default guard\nswitch (true) {\n  case score >= 90:\n    console.log(\"Grade A\");\n    break;\n  case score >= 80:\n    console.log(\"Grade B\");\n    break;\n  default:\n    console.log(\"Grade C or below\");\n}\n\n// Nullish coalescing + optional chaining\nconst user = { profile: { city: null } };\nconst city = user?.profile?.city ?? \"Unknown city\";\nconst zip = user?.address?.zip;   // undefined, no crash\n\n// Logical short-circuit guard\nconst label = status && `Result: ${status}`;\n\nconsole.log({ status, city, zip, label });"
+    },
+    {
+      "id": "js-loops",
+      "language": "javascript",
+      "topic": "Loops & Iteration",
+      "title": { "en": "JavaScript Loops: For, While & For…of", "ar": "الحلقات في JavaScript: For و While و For…of" },
+      "description": {
+        "en": "Iterate with classic for, while, do-while, for…of and for…in, and use keys(), forEach() and console.table for collections.",
+        "ar": "كرّر عبر for الكلاسيكية و while و do-while و for…of و for…in، واستخدم keys() و forEach() و console.table للمجموعات."
+      },
+      "code": "// Classic for loop\nfor (let i = 0; i < 5; i++) {\n  if (i === 2) continue;\n  process.stdout.write(`${i} `);\n}\n\n// while loop\nlet countdown = 3;\nwhile (countdown > 0) {\n  console.log(`T-minus ${countdown}`);\n  countdown--;\n}\n\n// do-while runs at least once\nlet attempts = 0;\ndo {\n  attempts++;\n  console.log(`Attempt ${attempts}`);\n} while (attempts < 2);\n\nconst languages = [\"JavaScript\", \"TypeScript\", \"SQL\"];\n\n// for…of gives values (preferred for arrays)\nfor (const language of languages) {\n  console.log(language);\n}\n\n// for…in gives keys / indexes\nconst user = { name: \"Ali\", age: 25 };\nfor (const key in user) {\n  console.log(`${key}: ${user[key]}`);\n}\n\n// forEach with index and early exit via some()\nlanguages.forEach((lang, index) => console.log(index, lang));\n\n// Iterate object entries\nfor (const [key, value] of Object.entries(user)) {\n  console.log(key, value);\n}"
+    },
+    {
+      "id": "js-functions",
+      "language": "javascript",
+      "topic": "Functions & Methods",
+      "title": { "en": "JavaScript Functions: Declarations, Arrows & Params", "ar": "دوال JavaScript: التصريحات والدوال السهمية والمعاملات" },
+      "description": {
+        "en": "Compare function declarations, expressions and arrow functions, and use default, rest and destructured parameters.",
+        "ar": "قارن بين تصريحات الدوال وتعبيراتها والدوال السهمية، واستخدم المعاملات الافتراضية والمتبقية والمفككة."
+      },
+      "code": "// Function declaration (hoisted)\nfunction add(a, b) {\n  return a + b;\n}\n\n// Function expression (not hoisted)\nconst multiply = function (a, b) {\n  return a * b;\n};\n\n// Arrow function with an implicit return\nconst square = (n) => n * n;\n\n// Default parameter\nfunction greet(name, greeting = \"Hello\") {\n  return `${greeting}, ${name}!`;\n}\n\n// Rest parameters collect the remaining arguments\nconst sum = (...numbers) => numbers.reduce((total, n) => total + n, 0);\n\n// Destructured object parameter\nfunction describe({ name, role = \"Developer\" }) {\n  return `${name} is a ${role}`;\n}\n\n// Optional chaining while calling\nconst config = { onSave: null };\nconfig.onSave?.();   // no error\n\nconsole.log(add(2, 3));\nconsole.log(multiply(4, 5));\nconsole.log(square(9));\nconsole.log(greet(\"Ali\"));\nconsole.log(greet(\"Sara\", \"Welcome\"));\nconsole.log(sum(1, 2, 3, 4));\nconsole.log(describe({ name: \"Omar\" }));"
+    },
+    {
+      "id": "js-array-methods",
+      "language": "javascript",
+      "topic": "Modern Idioms",
+      "title": { "en": "Map, Filter & Reduce", "ar": "دوال المصفوفات Map و Filter و Reduce" },
+      "description": {
+        "en": "Chain the three core array transforms to compute totals and summaries from an object collection.",
+        "ar": "اربط الدوال الثلاث الأساسية للمصفوفات لحساب المجاميع والملخصات من مجموعة كائنات."
+      },
+      "code": "const orders = [\n  { item: \"Keyboard\", price: 49.99, qty: 2 },\n  { item: \"Mouse\", price: 24.5, qty: 1 },\n  { item: \"Monitor\", price: 199, qty: 3 },\n  { item: \"Cable\", price: 5.99, qty: 4 },\n];\n\nconst labels = orders.map((o) => `${o.item} x${o.qty}`);\n\nconst expensive = orders.filter((o) => o.price > 20);\n\nconst total = orders.reduce((sum, o) => sum + o.price * o.qty, 0);\n\nconsole.log(labels);\nconsole.log(expensive.map((o) => o.item));\nconsole.log(`Total: $${total.toFixed(2)}`);"
+    },
+    {
+      "id": "js-fetch",
+      "language": "javascript",
+      "topic": "Modern Idioms",
+      "title": { "en": "Fetch API with Error Handling", "ar": "واجهة Fetch مع معالجة الأخطاء" },
+      "description": {
+        "en": "Perform a GET request with fetch, check the HTTP status, parse JSON, and handle network or parsing failures.",
+        "ar": "نفّذ طلب GET باستخدام fetch، وتحقق من حالة HTTP، وحلّل JSON، وتعامل مع أعطال الشبكة أو التحليل."
+      },
+      "code": "async function getUser(id) {\n  const response = await fetch(`https://api.example.com/users/${id}`, {\n    method: \"GET\",\n    headers: { Accept: \"application/json\" },\n  });\n\n  if (!response.ok) {\n    throw new Error(`Request failed: ${response.status}`);\n  }\n\n  return response.json();\n}\n\ntry {\n  const user = await getUser(1);\n  console.log(user.name);\n} catch (error) {\n  console.error(\"Unable to load user:\", error.message);\n}"
+    },
+    {
+      "id": "js-promises",
+      "language": "javascript",
+      "topic": "Modern Idioms",
+      "title": { "en": "Promises: Sequencing & Parallelism", "ar": "الوعود Promises: التسلسل والتوازي" },
+      "description": {
+        "en": "Run asynchronous tasks sequentially with await, execute independent tasks in parallel, and capture failures with Promise.allSettled.",
+        "ar": "نفّذ المهام غير المتزامنة بالتتابع عبر await، وبالتوازي عند استقلالها، والتقط الأخطاء عبر Promise.allSettled."
+      },
+      "code": "const wait = (ms, value) =>\n  new Promise((resolve) => setTimeout(() => resolve(value), ms));\n\n// Sequential: total time ≈ 300ms\nasync function sequential() {\n  const a = await wait(150, \"A\");\n  const b = await wait(150, \"B\");\n  return [a, b];\n}\n\n// Parallel: total time ≈ 150ms\nasync function parallel() {\n  return Promise.all([wait(150, \"A\"), wait(150, \"B\")]);\n}\n\n// Settle everything, even when some tasks fail\nconst results = await Promise.allSettled([\n  wait(50, \"ok\"),\n  Promise.reject(new Error(\"boom\")),\n]);\n\nconsole.log(results.map((r) => r.status)); // [\"fulfilled\", \"rejected\"]"
+    },
+    {
+      "id": "ts-core-syntax",
+      "language": "typescript",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "TypeScript Core Syntax: Types & Interfaces", "ar": "أساسيات TypeScript: الأنواع والواجهات" },
+      "description": {
+        "en": "Annotate primitives, unions and literal types, describe object shapes with interfaces, and compile to clean JavaScript output.",
+        "ar": "اكتب أنواع الأنواع الأولية والاتحادات والأنواع الحرفية، وصف أشكال الكائنات بالواجهات، ليُرجم إلى JavaScript نظيفة."
+      },
+      "code": "// Primitive type annotations\nconst name: string = \"Ali\";\nlet age: number = 25;\nconst isDeveloper: boolean = true;\nconst tags: string[] = [\"ts\", \"web\"];\n\n// Union and literal types\nlet status: \"idle\" | \"loading\" | \"done\" = \"idle\";\nconst id: string | number = 42;\n\n// Type alias for an object shape\ninterface User {\n  readonly id: number;\n  name: string;\n  email?: string;        // optional property\n}\n\nconst user: User = { id: 1, name: \"Ali\" };\n\n// Enums\nenum Role {\n  Admin = \"ADMIN\",\n  User = \"USER\",\n}\n\n// Type inference (no annotation needed)\nconst total = user.id + age;\n\nconst summary: string = `${name} (${status}) — ${user.name}, role ${Role.User}`;\nconsole.log(summary);\nconsole.log(tags.join(\", \"), total, id, isDeveloper);\n\n// @ts-expect-error — compile-time safety catches real mistakes\n// user.name = 123;"
+    },
+    {
+      "id": "ts-control-flow",
+      "language": "typescript",
+      "topic": "Control Flow",
+      "title": { "en": "TypeScript If / Else, Switch & Narrowing", "ar": "الشروط If / Else و Switch وتضييق الأنواع" },
+      "description": {
+        "en": "Branch on unions and narrow types safely with typeof, switch exhaustiveness and discriminated unions.",
+        "ar": "تفرّع حسب الاتحادات وضيّق الأنواع بأمان عبر typeof وswitch الشامل والاتحادات المميزة."
+      },
+      "code": "type ApiResponse =\n  | { status: \"success\"; data: string[] }\n  | { status: \"error\"; message: string };\n\nfunction handle(response: ApiResponse): string {\n  // Discriminated union switch\n  switch (response.status) {\n    case \"success\":\n      return `Loaded ${response.data.length} items`;\n    case \"error\":\n      return `Failed: ${response.message}`;\n    default: {\n      // Exhaustiveness guard\n      const never: never = response;\n      return never;\n    }\n  }\n}\n\n// typeof narrowing\nfunction format(value: string | number | boolean): string {\n  if (typeof value === \"number\") {\n    return value.toFixed(2);\n  }\n  if (typeof value === \"boolean\") {\n    return value ? \"yes\" : \"no\";\n  }\n  return value.trim();\n}\n\n// Truthiness guard + optional chaining\nconst users: { email?: string }[] = [{ email: \"a@x.com\" }, {}];\nconst firstEmail = users[0]?.email ?? \"none\";\n\nconst score = 87;\nconst label = score >= 90 ? \"A\" : score >= 80 ? \"B\" : \"C\";\n\nconsole.log(handle({ status: \"success\", data: [\"a\", \"b\"] }));\nconsole.log(format(12.3), firstEmail, label);"
+    },
+    {
+      "id": "ts-loops",
+      "language": "typescript",
+      "topic": "Loops & Iteration",
+      "title": { "en": "TypeScript Loops: For, For…of & Iterables", "ar": "الحلقات في TypeScript: For و For…of والقوائم القابلة للتكرار" },
+      "description": {
+        "en": "Iterate typed arrays and maps, use for…of with index pairs, while loops, and generics for reusable iteration helpers.",
+        "ar": "كرّر على مصفوفات وخرائط ذات أنواع، واستخدم for…of مع الأزواج المفهرسة و while، والأنواع العامة لدوال تكرار قابلة لإعادة الاستخدام."
+      },
+      "code": "const languages: string[] = [\"TypeScript\", \"JavaScript\", \"SQL\"];\n\n// Classic for\nfor (let i = 0; i < languages.length; i++) {\n  console.log(i, languages[i]);\n}\n\n// for…of (values)\nfor (const language of languages) {\n  console.log(language.toUpperCase());\n}\n\n// for…of with index\nfor (const [index, language] of languages.entries()) {\n  console.log(`${index + 1}. ${language}`);\n}\n\n// while with a typed counter\nlet retries = 3;\nwhile (retries > 0) {\n  console.log(`Retry ${4 - retries}`);\n  retries--;\n}\n\n// Iterate a Map\nconst scores = new Map<string, number>([\n  [\"Ali\", 92],\n  [\"Sara\", 88],\n]);\n\nfor (const [name, score] of scores) {\n  console.log(name, score);\n}\n\n// Generic helper returning typed results\nfunction firstN<T>(items: T[], n: number): T[] {\n  return items.slice(0, Math.max(0, n));\n}\n\nconsole.log(firstN<number>([1, 2, 3, 4], 2));"
+    },
+    {
+      "id": "ts-functions",
+      "language": "typescript",
+      "topic": "Functions & Methods",
+      "title": { "en": "TypeScript Functions: Generics & Overloads", "ar": "دوال TypeScript: الأنواع العامة والتحميل الزائد" },
+      "description": {
+        "en": "Type parameters, return types, optional and default arguments, function types, and overload signatures.",
+        "ar": "معاملات الأنواع وأنواع الإرجاع والمعاملات الاختيارية والافتراضية وأنواع الدوال وتوقيعات التحميل الزائد."
+      },
+      "code": "interface Identifiable {\n  id: number;\n}\n\n// Generic function with a typed return value\nfunction findById<T extends Identifiable>(items: T[], id: number): T | undefined {\n  return items.find((item) => item.id === id);\n}\n\n// Optional and default parameters\nfunction greet(name: string, greeting = \"Hello\"): string {\n  return `${greeting}, ${name}!`;\n}\n\n// Function type alias\nconst double: (value: number) => number = (value) => value * 2;\n\n// Overload signatures\nfunction parse(value: string): string[];\nfunction parse(value: string, separator: string): string[];\nfunction parse(value: string, separator = \",\"): string[] {\n  return value.split(separator).map((part) => part.trim());\n}\n\n// Rest + destructured parameters\nfunction sum({ values }: { values: number[] }): number {\n  return values.reduce((a, b) => a + b, 0);\n}\n\n// Async function returning a Promise\nasync function wait(ms: number): Promise<void> {\n  return new Promise((resolve) => setTimeout(resolve, ms));\n}\n\nconst user = findById([{ id: 1, name: \"Ali\" }], 1);\nconsole.log(greet(user?.name ?? \"guest\"), double(21), parse(\"a,b\"), sum({ values: [1, 2, 3] }));\nvoid wait(10);"
+    },
+    {
+      "id": "ts-typed-api",
+      "language": "typescript",
+      "topic": "Modern Idioms",
+      "title": { "en": "Typed API Client with Generics", "ar": "عميل API مكتوب الأنواع باستخدام Generics" },
+      "description": {
+        "en": "Build a strongly typed fetch wrapper with generics, discriminated unions, and a reusable ApiResult type.",
+        "ar": "ابنِ غلاف fetch قوي الأنواع باستخدام Generics والاتحادات المميزة ونوع ApiResult القابل لإعادة الاستخدام."
+      },
+      "code": "interface User {\n  id: number;\n  name: string;\n  email: string;\n}\n\ntype ApiResult<T> =\n  | { ok: true; data: T }\n  | { ok: false; error: string; status: number };\n\nasync function getJson<T>(url: string): Promise<ApiResult<T>> {\n  try {\n    const res = await fetch(url, {\n      headers: { Accept: \"application/json\" },\n    });\n\n    if (!res.ok) {\n      return { ok: false, error: res.statusText, status: res.status };\n    }\n\n    const data = (await res.json()) as T;\n    return { ok: true, data };\n  } catch (err) {\n    return {\n      ok: false,\n      error: err instanceof Error ? err.message : \"Unknown error\",\n      status: 0,\n    };\n  }\n}\n\nconst result = await getJson<User>(\"https://api.example.com/users/1\");\n\nif (result.ok) {\n  console.log(result.data.name);\n} else {\n  console.error(result.error, result.status);\n}"
+    },
+    {
+      "id": "ts-utility-types",
+      "language": "typescript",
+      "topic": "Modern Idioms",
+      "title": { "en": "Utility Types & Type Narrowing", "ar": "أنواع المساعدة وتضييق الأنواع" },
+      "description": {
+        "en": "Derive new types with Pick, Partial, Readonly and Record, then narrow discriminated unions safely.",
+        "ar": "اشتق أنواعًا جديدة باستخدام Pick و Partial و Readonly و Record، ثم ضيّق الاتحادات المميزة بأمان."
+      },
+      "code": "interface Article {\n  id: string;\n  title: string;\n  body: string;\n  published: boolean;\n  tags: string[];\n}\n\ntype ArticlePreview = Pick<Article, \"id\" | \"title\" | \"tags\">;\ntype ArticleDraft = Partial<Omit<Article, \"id\">>;\ntype FrozenArticle = Readonly<Article>;\ntype TagCounts = Record<string, number>;\n\nconst preview: ArticlePreview = {\n  id: \"a1\",\n  title: \"TypeScript Basics\",\n  tags: [\"ts\", \"types\"],\n};\n\nconst draft: ArticleDraft = { title: \"Work in progress\" };\n\nconst counts: TagCounts = { ts: 12, types: 5 };\n\ntype Shape =\n  | { kind: \"circle\"; radius: number }\n  | { kind: \"rect\"; width: number; height: number };\n\nfunction area(shape: Shape): number {\n  switch (shape.kind) {\n    case \"circle\":\n      return Math.PI * shape.radius ** 2;\n    case \"rect\":\n      return shape.width * shape.height;\n  }\n}\n\nconsole.log(preview.title, draft.title, counts.ts, area({ kind: \"rect\", width: 3, height: 4 }));"
+    },
+    {
+      "id": "py-core-syntax",
+      "language": "python",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "Python Core Syntax: Variables, Types & Printing", "ar": "أساسيات Python: المتغيرات والأنواع والطباعة" },
+      "description": {
+        "en": "Dynamic typing, f-strings, type hints, basic collections, and formatted output with print().",
+        "ar": "الكتابة الديناميكية والسلاسل المنسّقة f-strings وتلميحات الأنواع والمجموعات الأساسية والإخراج المنسّق بـ print()."
+      },
+      "code": "from typing import Optional\n\n# Variables are dynamically typed\nname = \"Ali\"\nage = 25\nheight = 1.78          # float\nis_developer = True    # bool\nNone_value = None\n\n# Type hints (optional, checked by mypy/IDEs)\ncity: str = \"Amman\"\nscores: list[int] = [90, 85, 77]\nuser: dict[str, str] = {\"name\": name, \"city\": city}\nmaybe_email: Optional[str] = None\n\n# print() with f-strings\nprint(f\"Name: {name}, Age: {age}\")\nprint(f\"Height: {height:.2f} m | Type: {type(height).__name__}\")\nprint(\"City:\", city, \"| Scores:\", scores)\n\n# Multiple assignment\nx, y = 1, 2\nx, y = y, x          # swap without a temp variable\n\n# Reading input (always returns a string)\n# answer = input(\"Favourite language: \")\nanswer = \"Python\"\nprint(f\"You picked {answer!r} ({len(answer)} chars)\")\n\nprint(\" | \".join(user.keys()))"
+    },
+    {
+      "id": "py-control-flow",
+      "language": "python",
+      "topic": "Control Flow",
+      "title": { "en": "Python If / Elif / Else & match-case", "ar": "الشروط If / Elif / Else و match-case في بايثون" },
+      "description": {
+        "en": "Use Python's indentation-based conditions, truthiness checks, ternary expressions, and structural pattern matching.",
+        "ar": "استخدم الشروط القائمة على المسافات البادئة وفحوصات الصدق والتعبيرات الثلاثية والمطابقة الهيكلية match-case."
+      },
+      "code": "score = 87\n\n# if / elif / else — indentation defines the blocks\nif score >= 90:\n    print(\"Excellent\")\nelif score >= 75:\n    print(\"Good\")\nelse:\n    print(\"Needs improvement\")\n\n# Ternary (conditional expression)\nstatus = \"Pass\" if score >= 50 else \"Fail\"\n\n# Truthiness and membership\nitems = []\nif not items:\n    print(\"Empty list\")\n\nrole = \"admin\"\nif role in {\"admin\", \"owner\"}:\n    print(\"Elevated access\")\n\n# Chained comparisons\nif 0 <= score <= 100:\n    print(\"Valid score\")\n\n# Structural pattern matching (Python 3.10+)\ncommand = (\"move\", 10, 20)\nmatch command:\n    case (\"move\", x, y):\n        print(f\"Moving to {x},{y}\")\n    case (\"quit\",):\n        print(\"Bye\")\n    case {\"action\": action}:\n        print(f\"Dict action: {action}\")\n    case _:\n        print(\"Unknown command\")\n\nprint(status)"
+    },
+    {
+      "id": "py-loops",
+      "language": "python",
+      "topic": "Loops & Iteration",
+      "title": { "en": "Python Loops: for, while & range()", "ar": "الحلقات في بايثون: for و while و range()" },
+      "description": {
+        "en": "Iterate sequences with for, count with range() and enumerate(), loop with while, and use else on loops for search patterns.",
+        "ar": "كرّر على التسلسلات بـ for، وعدّ بـ range() و enumerate()، وكرّر بـ while، واستخدم else مع الحلقات لأنماط البحث."
+      },
+      "code": "# for over a list\nlanguages = [\"Python\", \"C#\", \"SQL\"]\nfor language in languages:\n    print(language)\n\n# range(start, stop, step)\nfor i in range(0, 10, 2):\n    if i == 4:\n        continue\n    print(i, end=\" \")\nprint()\n\n# enumerate gives index + value\nfor index, language in enumerate(languages, start=1):\n    print(f\"{index}. {language}\")\n\n# zip pairs two sequences\nnames = [\"Ali\", \"Sara\"]\nscores = [92, 88]\nfor name, score in zip(names, scores):\n    print(name, score)\n\n# while loop\ncountdown = 3\nwhile countdown > 0:\n    print(f\"T-minus {countdown}\")\n    countdown -= 1\n\n# for…else: else runs only if no break occurred\nfor n in [3, 5, 8]:\n    if n % 2 == 0:\n        print(f\"First even: {n}\")\n        break\nelse:\n    print(\"No even number found\")\n\n# Iterate dictionary items\nprices = {\"keyboard\": 49.99, \"monitor\": 199.00}\nfor product, price in prices.items():\n    print(f\"{product}: ${price:.2f}\")"
+    },
+    {
+      "id": "py-functions",
+      "language": "python",
+      "topic": "Functions & Methods",
+      "title": { "en": "Python Functions: Defaults, *args & Type Hints", "ar": "دوال Python: القيم الافتراضية و *args وتلميحات الأنواع" },
+      "description": {
+        "en": "Define typed functions with default and keyword arguments, variadic *args/**kwargs, multiple returns, and decorators.",
+        "ar": "عرّف دوالًا ذات أنواع مع معاملات افتراضية ومفتاحية و *args/**kwargs وإرجاع متعدد والمزخرفات."
+      },
+      "code": "from functools import wraps\nfrom typing import Callable\n\n# Default and keyword arguments\ndef greet(name: str, greeting: str = \"Hello\") -> str:\n    return f\"{greeting}, {name}!\"\n\n# Type hints and a default of None\ndef power(base: float, exponent: int = 2) -> float:\n    return base ** exponent\n\n# *args and **kwargs\ndef summarize(*numbers: int, **options: object) -> dict:\n    return {\n        \"count\": len(numbers),\n        \"total\": sum(numbers),\n        \"options\": options,\n    }\n\n# Multiple return values (a tuple)\ndef min_max(values: list[int]) -> tuple[int, int]:\n    return min(values), max(values)\n\n# Keyword-only arguments (after *)\ndef connect(host: str, *, port: int = 5432, timeout: int = 30) -> str:\n    return f\"{host}:{port} (timeout {timeout}s)\"\n\n# Decorator with wraps\ndef logged(func: Callable) -> Callable:\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        print(f\"Calling {func.__name__}\")\n        return func(*args, **kwargs)\n\n    return wrapper\n\n@logged\ndef add(a: int, b: int) -> int:\n    return a + b\n\nprint(greet(\"Ali\"))\nprint(greet(\"Sara\", greeting=\"Welcome\"))\nprint(power(3), summarize(1, 2, 3, verbose=True))\nprint(min_max([4, 9, 1, 12]))\nprint(connect(\"localhost\", port=3306))\nprint(add(2, 3))"
+    },
+    {
+      "id": "py-list-comprehension",
+      "language": "python",
+      "topic": "Modern Idioms",
+      "title": { "en": "List, Dict & Set Comprehensions", "ar": "التوليدات للقوائم والقواميس والمجموعات" },
+      "description": {
+        "en": "Write compact, readable transformations using comprehensions with conditions and nested loops.",
+        "ar": "اكتب تحويلات موجزة وواضحة باستخدام التوليدات مع الشروط والحلقات المتداخلة."
+      },
+      "code": "numbers = range(1, 21)\n\n# Squares of even numbers\nsquares = [n ** 2 for n in numbers if n % 2 == 0]\nprint(squares)\n\n# Dictionary mapping number -> cube\ncubes = {n: n ** 3 for n in range(1, 6)}\nprint(cubes)\n\n# Unique word lengths\nwords = [\"apple\", \"fig\", \"banana\", \"kiwi\", \"apple\"]\nlengths = {len(w) for w in words}\nprint(sorted(lengths))\n\n# Flatten a matrix\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflat = [value for row in matrix for value in row]\nprint(flat)\n\n# Generator expression (lazy, memory friendly)\ntotal = sum(n * n for n in range(1_000_000) if n % 3 == 0)\nprint(total)"
+    },
+    {
+      "id": "py-dict-ops",
+      "language": "python",
+      "topic": "Modern Idioms",
+      "title": { "en": "Dictionary Operations & Merging", "ar": "عمليات القواميس والدمج" },
+      "description": {
+        "en": "Use get, setdefault, defaultdict, and the merge operator to manage dictionaries safely and idiomatically.",
+        "ar": "استخدم get و setdefault و defaultdict ومعامل الدمج لإدارة القواميس بأمان وبأسلوب بايثوني."
+      },
+      "code": "from collections import defaultdict\n\ninventory = {\"apple\": 12, \"banana\": 5}\n\n# Safe access with a default\nprint(inventory.get(\"cherry\", 0))\n\n# Insert only when absent\ninventory.setdefault(\"cherry\", 0)\ninventory[\"cherry\"] += 7\n\n# Merge with the union operator (Python 3.9+)\nrestock = {\"banana\": 20, \"mango\": 3}\nmerged = inventory | restock\nprint(merged)\n\n# Group values by key\nsales = [(\"fruit\", 10), (\"veg\", 4), (\"fruit\", 6), (\"veg\", 9)]\ngrouped = defaultdict(int)\nfor category, amount in sales:\n    grouped[category] += amount\n\nfor category, total in grouped.items():\n    print(f\"{category}: {total}\")\n\n# Iterate deterministically\nfor name in sorted(merged):\n    print(name, merged[name])"
+    },
+    {
+      "id": "py-file-reading",
+      "language": "python",
+      "topic": "Modern Idioms",
+      "title": { "en": "Reading Files Safely with pathlib", "ar": "قراءة الملفات بأمان باستخدام pathlib" },
+      "description": {
+        "en": "Read text and JSON files using context managers, handle missing files, and stream large files line by line.",
+        "ar": "اقرأ الملفات النصية وملفات JSON باستخدام مديري السياق، وتعامل مع الملفات المفقودة، وبثّ الملفات الكبيرة سطرًا بسطر."
+      },
+      "code": "import json\nfrom pathlib import Path\n\npath = Path(\"data/config.json\")\n\n# Read the entire file as text\ntry:\n    text = path.read_text(encoding=\"utf-8\")\n    print(text)\nexcept FileNotFoundError:\n    print(f\"Missing file: {path}\")\n\n# Parse JSON\nif path.exists():\n    config = json.loads(path.read_text(encoding=\"utf-8\"))\n    print(config.get(\"name\", \"unnamed\"))\n\n# Stream a large file line by line\nwith open(\"data/log.txt\", \"r\", encoding=\"utf-8\") as handle:\n    for line_number, line in enumerate(handle, start=1):\n        if \"ERROR\" in line:\n            print(f\"{line_number}: {line.rstrip()}\")\n\n# Write files atomically-ish\npath.parent.mkdir(parents=True, exist_ok=True)\npath.write_text(json.dumps({\"name\": \"app\"}, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "id": "java-core-syntax",
+      "language": "java",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "Java Core Syntax: Types & System.out", "ar": "أساسيات Java: الأنواع و System.out" },
+      "description": {
+        "en": "Declare primitive types and Strings, use var, format output with printf, and parse numbers safely.",
+        "ar": "عرّف الأنواع الأولية والسلاسل النصية، واستخدم var، ونسّق الإخراج بـ printf، وحلّل الأرقام بأمان."
+      },
+      "code": "public class Basics {\n    public static void main(String[] args) {\n        // Primitive types\n        int age = 25;\n        double height = 1.78;\n        char initial = 'A';\n        boolean isDeveloper = true;\n        final double PI = 3.14159;\n\n        // Reference type\n        String name = \"Ali\";\n\n        // Local variable type inference (Java 10+)\n        var city = \"Amman\";\n        var scores = new int[] { 90, 85, 77 };\n\n        // Output\n        System.out.println(\"Name: \" + name + \", Age: \" + age);\n        System.out.printf(\"Height: %.2f m | City: %s%n\", height, city);\n        System.out.println(\"Developer: \" + isDeveloper + \" | Pi: \" + PI);\n        System.out.printf(\"Scores: %d items%n\", scores.length);\n\n        // Reading input\n        java.util.Scanner scanner = new java.util.Scanner(System.in);\n        System.out.print(\"Favourite language: \");\n        String language = scanner.nextLine();\n        System.out.printf(\"You picked %s (letter %c)%n\", language, initial);\n\n        // Safe conversion\n        try {\n            int parsed = Integer.parseInt(\"42\");\n            System.out.println(\"Parsed: \" + parsed * 2);\n        } catch (NumberFormatException e) {\n            System.out.println(\"Not a number\");\n        }\n    }\n}"
+    },
+    {
+      "id": "java-control-flow",
+      "language": "java",
+      "topic": "Control Flow",
+      "title": { "en": "Java If / Else, Switch & switch Expressions", "ar": "الشروط If / Else و Switch وتعبيرات switch في Java" },
+      "description": {
+        "en": "Branch with if/else, the ternary operator, classic switch with fall-through, and modern arrow switch expressions.",
+        "ar": "استخدم الشروط if/else والعامل الثلاثي وswitch التقليدي مع fall-through وتعبيرات switch الحديثة بالسهم."
+      },
+      "code": "public class ControlFlow {\n    public static void main(String[] args) {\n        int score = 87;\n\n        // if / else if / else\n        if (score >= 90) {\n            System.out.println(\"Excellent\");\n        } else if (score >= 75) {\n            System.out.println(\"Good\");\n        } else {\n            System.out.println(\"Needs improvement\");\n        }\n\n        // Ternary\n        String status = score >= 50 ? \"Pass\" : \"Fail\";\n\n        // Classic switch (multiple labels + break)\n        char grade;\n        switch (score / 10) {\n            case 9:\n            case 10:\n                grade = 'A';\n                break;\n            case 8:\n                grade = 'B';\n                break;\n            default:\n                grade = 'C';\n        }\n\n        // switch expression with arrow labels (Java 14+)\n        String message = switch (grade) {\n            case 'A' -> \"Outstanding work!\";\n            case 'B' -> \"Well done!\";\n            default -> \"Keep practising.\";\n        };\n\n        // Pattern matching for instanceof (Java 16+)\n        Object value = \"SyntaxHub\";\n        if (value instanceof String text && text.length() > 5) {\n            System.out.println(text.toUpperCase());\n        }\n\n        System.out.println(status + \" — Grade \" + grade + \": \" + message);\n    }\n}"
+    },
+    {
+      "id": "java-loops",
+      "language": "java",
+      "topic": "Loops & Iteration",
+      "title": { "en": "Java Loops: For, While & Enhanced For", "ar": "الحلقات في Java: For و While و For المحسّنة" },
+      "description": {
+        "en": "Use classic and enhanced for loops, while/do-while, labelled break, and iterate Map entries.",
+        "ar": "استخدم for الكلاسيكية والمحسّنة و while/do-while و break المسمّى والتكرار على مدخلات Map."
+      },
+      "code": "import java.util.*;\n\npublic class Loops {\n    public static void main(String[] args) {\n        // Classic for\n        for (int i = 0; i < 5; i++) {\n            if (i == 2) continue;\n            System.out.print(i + \" \");\n        }\n        System.out.println();\n\n        // while\n        int countdown = 3;\n        while (countdown > 0) {\n            System.out.println(\"T-minus \" + countdown);\n            countdown--;\n        }\n\n        // do-while runs at least once\n        int attempts = 0;\n        do {\n            attempts++;\n            System.out.println(\"Attempt \" + attempts);\n        } while (attempts < 2);\n\n        // Enhanced for (for-each)\n        List<String> languages = List.of(\"Java\", \"C#\", \"SQL\");\n        for (String language : languages) {\n            System.out.println(language);\n        }\n\n        // Labelled break exits the outer loop\n        outer:\n        for (int row = 0; row < 3; row++) {\n            for (int col = 0; col < 3; col++) {\n                if (row == 1 && col == 1) break outer;\n                System.out.printf(\"(%d,%d) \", row, col);\n            }\n        }\n        System.out.println();\n\n        // Iterate a Map\n        Map<String, Integer> prices = new HashMap<>(Map.of(\"Keyboard\", 50, \"Monitor\", 199));\n        for (Map.Entry<String, Integer> entry : prices.entrySet()) {\n            System.out.println(entry.getKey() + \": $\" + entry.getValue());\n        }\n    }\n}"
+    },
+    {
+      "id": "java-functions",
+      "language": "java",
+      "topic": "Functions & Methods",
+      "title": { "en": "Java Methods: Overloading, varargs & Records", "ar": "طرق Java: التحميل الزائد و varargs والسجلات" },
+      "description": {
+        "en": "Define static and instance methods, overload them, use varargs and generics, and bundle results in a record.",
+        "ar": "عرّف طرقًا ثابتة ومثيلية، وحمّلها بشكل زائد، واستخدم varargs والأنواع العامة، واجمع النتائج في record."
+      },
+      "code": "import java.util.Arrays;\n\npublic class Methods {\n    // Static method with return value\n    static int add(int a, int b) {\n        return a + b;\n    }\n\n    // Overloading: same name, different parameter types\n    static double add(double a, double b) {\n        return a + b;\n    }\n\n    // Varargs: zero or more arguments\n    static int sum(int... values) {\n        return Arrays.stream(values).sum();\n    }\n\n    // Generic method\n    static <T> T firstOrNull(T[] items) {\n        return items.length > 0 ? items[0] : null;\n    }\n\n    // Record: immutable data carrier with accessors (Java 16+)\n    record Range(int min, int max) {}\n\n    static Range minMax(int[] values) {\n        int min = Arrays.stream(values).min().orElse(0);\n        int max = Arrays.stream(values).max().orElse(0);\n        return new Range(min, max);\n    }\n\n    // Instance method\n    String greet(String name) {\n        return \"Hello, \" + name + \"!\";\n    }\n\n    public static void main(String[] args) {\n        System.out.println(add(2, 3));\n        System.out.println(add(1.5, 2.25));\n        System.out.println(sum(1, 2, 3, 4));\n        System.out.println(firstOrNull(new String[] { \"Java\", \"C#\" }));\n\n        Range range = minMax(new int[] { 4, 9, 1, 12 });\n        System.out.println(range.min() + \" – \" + range.max());\n\n        Methods methods = new Methods();\n        System.out.println(methods.greet(\"Ali\"));\n    }\n}"
+    },
+    {
+      "id": "java-collections",
+      "language": "java",
+      "topic": "Modern Idioms",
+      "title": { "en": "Collections: List, Map & Set", "ar": "المجموعات: List و Map و Set" },
+      "description": {
+        "en": "Create and manipulate common collection types with generics, iteration, sorting, and frequency counting.",
+        "ar": "أنشئ وتعامل مع أنواع المجموعات الشائعة باستخدام الأنواع العامة والتكرار والترتيب وحساب التكرارات."
+      },
+      "code": "import java.util.*;\n\npublic class CollectionsDemo {\n    public static void main(String[] args) {\n        List<String> names = new ArrayList<>(List.of(\"Ali\", \"Sara\", \"Omar\", \"Sara\"));\n        names.add(\"Lina\");\n        Collections.sort(names);\n\n        Set<String> unique = new HashSet<>(names);\n\n        Map<String, Integer> counts = new HashMap<>();\n        for (String name : names) {\n            counts.merge(name, 1, Integer::sum);\n        }\n\n        System.out.println(\"Sorted list: \" + names);\n        System.out.println(\"Unique: \" + unique.size());\n        System.out.println(\"Counts: \" + counts);\n\n        names.removeIf(n -> n.startsWith(\"S\"));\n        System.out.println(\"After filter: \" + names);\n    }\n}"
+    },
+    {
+      "id": "java-streams",
+      "language": "java",
+      "topic": "Modern Idioms",
+      "title": { "en": "Streams API: Filter, Map & Collect", "ar": "واجهة Streams: التصفية والتحويل والتجميع" },
+      "description": {
+        "en": "Process a collection declaratively with the Streams API, group by a property, and compute aggregate statistics.",
+        "ar": "عالج مجموعة بشكل تعريفي باستخدام Streams API، وجمّع حسب خاصية، واحسب إحصاءات تجميعية."
+      },
+      "code": "import java.util.*;\nimport java.util.stream.*;\n\nrecord Employee(String name, String dept, double salary) {}\n\npublic class StreamsDemo {\n    public static void main(String[] args) {\n        List<Employee> staff = List.of(\n            new Employee(\"Ali\", \"Engineering\", 5200),\n            new Employee(\"Sara\", \"Engineering\", 6100),\n            new Employee(\"Omar\", \"Sales\", 3800),\n            new Employee(\"Lina\", \"Sales\", 4500),\n            new Employee(\"Noor\", \"HR\", 3200)\n        );\n\n        Map<String, List<String>> byDept = staff.stream()\n            .collect(Collectors.groupingBy(\n                Employee::dept,\n                Collectors.mapping(Employee::name, Collectors.toList())));\n\n        double engineeringAverage = staff.stream()\n            .filter(e -> e.dept().equals(\"Engineering\"))\n            .mapToDouble(Employee::salary)\n            .average()\n            .orElse(0);\n\n        List<String> topEarners = staff.stream()\n            .filter(e -> e.salary() > 4000)\n            .sorted(Comparator.comparingDouble(Employee::salary).reversed())\n            .map(Employee::name)\n            .toList();\n\n        System.out.println(byDept);\n        System.out.printf(\"Engineering avg: %.2f%n\", engineeringAverage);\n        System.out.println(\"Top earners: \" + topEarners);\n    }\n}"
+    },
+    {
+      "id": "java-oop",
+      "language": "java",
+      "topic": "Modern Idioms",
+      "title": { "en": "OOP: Abstract Class & Interfaces", "ar": "البرمجة الكائنية: فئة مجردة وواجهات" },
+      "description": {
+        "en": "Model a shape hierarchy with an abstract class, an interface with default methods, and polymorphism.",
+        "ar": "صمّم تسلسلًا هرميًا للأشكال باستخدام فئة مجردة وواجهة بدوال افتراضية وتعدد الأشكال."
+      },
+      "code": "interface Describable {\n    String describe();\n\n    default String label() {\n        return \"[shape] \" + describe();\n    }\n}\n\nabstract class Shape implements Describable {\n    protected final String name;\n\n    protected Shape(String name) {\n        this.name = name;\n    }\n\n    public abstract double area();\n\n    @Override\n    public String describe() {\n        return String.format(\"%s with area %.2f\", name, area());\n    }\n}\n\nclass Circle extends Shape {\n    private final double radius;\n\n    Circle(double radius) {\n        super(\"Circle\");\n        this.radius = radius;\n    }\n\n    @Override\n    public double area() {\n        return Math.PI * radius * radius;\n    }\n}\n\nclass Rectangle extends Shape {\n    private final double width, height;\n\n    Rectangle(double width, double height) {\n        super(\"Rectangle\");\n        this.width = width;\n        this.height = height;\n    }\n\n    @Override\n    public double area() {\n        return width * height;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        java.util.List<Shape> shapes = java.util.List.of(new Circle(2), new Rectangle(3, 4));\n        shapes.forEach(s -> System.out.println(s.label()));\n    }\n}"
+    },
+    {
+      "id": "php-core-syntax",
+      "language": "php",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "PHP Core Syntax: Variables, Types & Echo", "ar": "أساسيات PHP: المتغيرات والأنواع و echo" },
+      "description": {
+        "en": "Variables with the $ sigil, strict types, interpolation in double quotes, arrays, and output with echo/print.",
+        "ar": "المتغيرات بعلامة $، والأنواع الصارمة، والاستبدال داخل النصوص المزدوجة، والمصفوفات، والإخراج بـ echo/print."
+      },
+      "code": "<?php\ndeclare(strict_types=1);\n\n// Variables start with $\n$name = 'Ali';\n$age = 25;\n$height = 1.78;\n$isDeveloper = true;\n$tags = ['php', 'web'];          // indexed array\n$user = ['city' => 'Amman'];     // associative array\n\n// Constants\ndefine('SITE_NAME', 'SyntaxHub');\nconst VERSION = '1.0';\n\n// Double quotes interpolate, single quotes do not\necho \"Name: $name, Age: $age\\n\";\necho 'No interpolation: $name' . PHP_EOL;\n\n// printf-style formatting\nprintf(\"Height: %.2f m | City: %s | Site: %s%n\", $height, $user['city'], SITE_NAME);\n\n// Type inspection\necho gettype($height) . PHP_EOL;         // double\nvar_dump($tags);                         // structured output\nprint_r($user);                          // readable output\n\n// Safe conversion\n$number = filter_var('42', FILTER_VALIDATE_INT);\necho 'Parsed: ' . ($number * 2) . PHP_EOL;\n\necho 'Tier: ' . (VERSION >= '1.0' ? 'stable' : 'beta') . PHP_EOL;"
+    },
+    {
+      "id": "php-control-flow",
+      "language": "php",
+      "topic": "Control Flow",
+      "title": { "en": "PHP If / Else, Switch & match", "ar": "الشروط If / Else و Switch و match في PHP" },
+      "description": {
+        "en": "Branch with if/else, the null-coalescing operator, classic switch, and the strict match expression (PHP 8).",
+        "ar": "استخدم الشروط if/else ومعامل التجميع الفارغ وswitch التقليدي وتعبير match الصارم (PHP 8)."
+      },
+      "code": "<?php\n\ndeclare(strict_types=1);\n\n$score = 87;\n\n// if / else if / else\nif ($score >= 90) {\n    echo \"Excellent\\n\";\n} elseif ($score >= 75) {\n    echo \"Good\\n\";\n} else {\n    echo \"Needs improvement\\n\";\n}\n\n// Ternary and null coalescing\n$status = $score >= 50 ? 'Pass' : 'Fail';\n$username = null;\n$display = $username ?? 'Guest';\n\n// Alternative syntax works well in templates\nif ($score > 0):\n    echo \"Score recorded\\n\";\nendif;\n\n// switch with break\nswitch (true) {\n    case $score >= 90:\n        $grade = 'A';\n        break;\n    case $score >= 80:\n        $grade = 'B';\n        break;\n    default:\n        $grade = 'C';\n}\n\n// match is an expression and compares strictly (PHP 8+)\n$message = match ($grade) {\n    'A' => 'Outstanding work!',\n    'B' => 'Well done!',\n    default => 'Keep practising.',\n};\n\necho \"$status — Grade $grade: $message, user $display\\n\";"
+    },
+    {
+      "id": "php-loops",
+      "language": "php",
+      "topic": "Loops & Iteration",
+      "title": { "en": "PHP Loops: For, While & foreach", "ar": "الحلقات في PHP: For و While و foreach" },
+      "description": {
+        "en": "Iterate with for, while, do-while and foreach, including key=>value pairs in associative arrays.",
+        "ar": "كرّر عبر for و while و do-while و foreach بما يشمل أزواج مفتاح=>قيمة في المصفوفات الترابطية."
+      },
+      "code": "<?php\n\n// for loop\nfor ($i = 0; $i < 5; $i++) {\n    if ($i === 2) {\n        continue;\n    }\n    echo $i . ' ';\n}\necho PHP_EOL;\n\n// while loop\n$countdown = 3;\nwhile ($countdown > 0) {\n    echo \"T-minus $countdown\\n\";\n    $countdown--;\n}\n\n// do-while runs at least once\n$attempts = 0;\ndo {\n    $attempts++;\n    echo \"Attempt $attempts\\n\";\n} while ($attempts < 2);\n\n// foreach over indexed arrays\n$languages = ['PHP', 'C#', 'SQL'];\nforeach ($languages as $language) {\n    echo strtoupper($language) . PHP_EOL;\n}\n\n// foreach with index\nforeach ($languages as $index => $language) {\n    echo ($index + 1) . \". $language\\n\";\n}\n\n// foreach over associative arrays (key => value)\n$prices = ['Keyboard' => 49.99, 'Monitor' => 199.00];\nforeach ($prices as $product => $price) {\n    printf(\"%s: $%.2f%n\", $product, $price);\n}"
+    },
+    {
+      "id": "php-functions",
+      "language": "php",
+      "topic": "Functions & Methods",
+      "title": { "en": "PHP Functions: Types, Defaults & Closures", "ar": "دوال PHP: الأنواع والقيم الافتراضية والدوال المغلقة" },
+      "description": {
+        "en": "Declare functions with type hints and return types, default and variadic parameters, closures with use, and arrow functions.",
+        "ar": "صرّح بدوال مع تلميحات الأنواع وأنواع الإرجاع والمعاملات الافتراضية والمتغيرة، والدوال المغلقة بـ use، والدوال السهمية."
+      },
+      "code": "<?php\n\ndeclare(strict_types=1);\n\n// Typed parameters and return type\nfunction add(int $a, int $b): int\n{\n    return $a + $b;\n}\n\n// Default and nullable parameters\nfunction greet(string $name, string $greeting = 'Hello'): string\n{\n    return \"$greeting, $name!\";\n}\n\n// Variadic parameters\nfunction sum(float ...$numbers): float\n{\n    return array_sum($numbers);\n}\n\n// Multiple return values via an array\nfunction minMax(array $values): array\n{\n    return ['min' => min($values), 'max' => max($values)];\n}\n\n// Closure capturing outer scope with use\n$taxRate = 0.16;\n$withTax = function (float $price) use ($taxRate): float {\n    return $price * (1 + $taxRate);\n};\n\n// Arrow function (auto-captures by value)\n$square = fn (int $n): int => $n * $n;\n\n// Null return type and nullsafe call\nfunction findUser(int $id): ?string\n{\n    return $id > 0 ? \"User #$id\" : null;\n}\n\necho add(2, 3) . PHP_EOL;\necho greet('Sara', greeting: 'Welcome') . PHP_EOL;   // named arguments\necho sum(1.5, 2.5, 3.0) . PHP_EOL;\n\n['min' => $min, 'max' => $max] = minMax([4, 9, 1, 12]);\necho \"Range: $min – $max\\n\";\n\necho 'With tax: ' . number_format($withTax(100), 2) . PHP_EOL;\necho 'Square: ' . $square(9) . PHP_EOL;\necho findUser(7) ?? 'No user found';"
+    },
+    {
+      "id": "php-pdo",
+      "language": "php",
+      "topic": "Modern Idioms",
+      "title": { "en": "Secure PDO Queries with Prepared Statements", "ar": "استعلامات PDO آمنة مع العبارات المُحضّرة" },
+      "description": {
+        "en": "Connect to MySQL using PDO, run parameterized queries to prevent SQL injection, and fetch results as associative arrays.",
+        "ar": "اتصل بـ MySQL باستخدام PDO، ونفّذ استعلامات بمعاملات لمنع حقن SQL، واجلب النتائج كمصفوفات ترابطية."
+      },
+      "code": "<?php\ndeclare(strict_types=1);\n\n$dsn = 'mysql:host=localhost;dbname=shop;charset=utf8mb4';\n$options = [\n    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,\n    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,\n    PDO::ATTR_EMULATE_PREPARES   => false,\n];\n\ntry {\n    $pdo = new PDO($dsn, 'root', '', $options);\n\n    $statement = $pdo->prepare(\n        'SELECT id, name, price FROM products WHERE category = :category AND price < :max'\n    );\n    $statement->execute(['category' => 'books', 'max' => 50]);\n\n    foreach ($statement->fetchAll() as $product) {\n        printf(\"#%d %s - $%.2f\\n\", $product['id'], $product['name'], $product['price']);\n    }\n} catch (PDOException $e) {\n    error_log($e->getMessage());\n    http_response_code(500);\n    echo 'Database error.';\n}"
+    },
+    {
+      "id": "sql-core-syntax",
+      "language": "sql",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "SQL Core Syntax: SELECT, Literals & Casting", "ar": "أساسيات SQL: SELECT والقيم الحرفية والتحويل" },
+      "description": {
+        "en": "Select columns and expressions, alias results, concatenate strings, cast types, and handle NULL values.",
+        "ar": "اختر الأعمدة والتعبيرات، وأعطِ أسماء مستعارة للنتائج، وادمج النصوص، وحوّل الأنواع، وتعامل مع قيم NULL."
+      },
+      "code": "-- Select specific columns with aliases\nSELECT\n    id,\n    first_name AS name,\n    email\nFROM users;\n\n-- Expressions, concatenation and casting\nSELECT\n    id,\n    first_name || ' ' || last_name AS full_name,   -- PostgreSQL / SQLite\n    price,\n    price * 1.16                    AS price_with_tax,\n    CAST(price AS INTEGER)          AS price_rounded,\n    UPPER(category)                 AS category_upper\nFROM products\nWHERE price > 10\nORDER BY price DESC\nLIMIT 10;\n\n-- String and date functions\nSELECT\n    CONCAT(first_name, ' ', last_name)        AS full_name,   -- MySQL\n    COALESCE(phone, 'Not provided')           AS phone,\n    CURRENT_DATE                              AS today,\n    EXTRACT(YEAR FROM created_at)             AS joined_year\nFROM users;\n\n-- NULL-safe filtering\nSELECT id, email\nFROM users\nWHERE phone IS NOT NULL\n  AND deleted_at IS NULL;\n\n-- Distinct values\nSELECT DISTINCT category FROM products ORDER BY category;"
+    },
+    {
+      "id": "sql-control-flow",
+      "language": "sql",
+      "topic": "Control Flow",
+      "title": { "en": "SQL Conditional Logic: CASE & IF", "ar": "المنطق الشرطي في SQL: CASE و IF" },
+      "description": {
+        "en": "Branch inside queries with searched and simple CASE, NULLIF, and conditional aggregation for totals.",
+        "ar": "تفرّع داخل الاستعلامات باستخدام CASE البحثي والبسيط و NULLIF والتجميع الشرطي لحساب المجاميع."
+      },
+      "code": "-- Simple CASE on a column\nSELECT\n    id,\n    status,\n    CASE status\n        WHEN 'paid'    THEN 'Complete'\n        WHEN 'pending' THEN 'Awaiting payment'\n        ELSE 'Cancelled'\n    END AS status_label\nFROM orders;\n\n-- Searched CASE (range conditions)\nSELECT\n    name,\n    price,\n    CASE\n        WHEN price >= 500 THEN 'Premium'\n        WHEN price >= 100 THEN 'Standard'\n        ELSE 'Budget'\n    END AS tier\nFROM products;\n\n-- Conditional aggregation: one total per status\nSELECT\n    customer_id,\n    COUNT(*)                                        AS total_orders,\n    SUM(CASE WHEN status = 'paid'    THEN 1 ELSE 0 END) AS paid_orders,\n    SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending_orders,\n    SUM(CASE WHEN status = 'paid' THEN total ELSE 0 END) AS revenue\nFROM orders\nGROUP BY customer_id;\n\n-- Avoid division by zero with NULLIF\nSELECT AVG(total / NULLIF(quantity, 0)) AS avg_unit_price\nFROM order_items;"
+    },
+    {
+      "id": "sql-loops",
+      "language": "sql",
+      "topic": "Loops & Iteration",
+      "title": { "en": "Iteration in SQL: Generators, Recursion & Cursors", "ar": "التكرار في SQL: المولّدات والتكرار الذاتي والمؤشرات" },
+      "description": {
+        "en": "SQL is set-based, so loops are expressed differently: series generators, recursive CTEs, window frames, and a comparison with procedural loops (PL/pgSQL).",
+        "ar": "SQL مبني على المجموعات، لذا يُعبّر عن التكرار بطرق مختلفة: مولّدات السلاسل و CTE التكرارية وإطارات النوافذ، ومقارنة بحلقات الإجرائية (PL/pgSQL)."
+      },
+      "code": "-- 1) Generate a sequence instead of looping (PostgreSQL)\nSELECT generate_series(1, 5) AS n, generate_series(1, 5) * n_sq AS square\nFROM generate_series(1, 5) AS n_sq;\n\n-- MySQL equivalent of a simple counter\nWITH RECURSIVE numbers AS (\n    SELECT 1 AS n\n    UNION ALL\n    SELECT n + 1 FROM numbers WHERE n < 5\n)\nSELECT n, n * n AS square FROM numbers;\n\n-- 2) Recursive CTE: walk an employee hierarchy\nWITH RECURSIVE org AS (\n    SELECT id, name, manager_id, 1 AS level\n    FROM employees\n    WHERE manager_id IS NULL\n    UNION ALL\n    SELECT e.id, e.name, e.manager_id, o.level + 1\n    FROM employees e\n    JOIN org o ON e.manager_id = o.id\n)\nSELECT level, name FROM org ORDER BY level, name;\n\n-- 3) Iterate rows with a window frame\nSELECT\n    sale_date,\n    amount,\n    SUM(amount) OVER (ORDER BY sale_date) AS running_total\nFROM sales;\n\n-- 4) Procedural loop (PostgreSQL PL/pgSQL)\nDO $$\nBEGIN\n    FOR counter IN 1..3 LOOP\n        RAISE NOTICE 'Iteration %', counter;\n    END LOOP;\nEND $$;\n\n-- And a plain cursor loop when row-by-row logic is unavoidable\n-- DECLARE cur CURSOR FOR SELECT id FROM orders; LOOP FETCH cur INTO v_id; EXIT WHEN NOT FOUND; ... END LOOP;"
+    },
+    {
+      "id": "sql-functions",
+      "language": "sql",
+      "topic": "Functions & Methods",
+      "title": { "en": "SQL Functions: Aggregates & User-Defined", "ar": "دوال SQL: التجميعية والمعرّفة من المستخدم" },
+      "description": {
+        "en": "Use built-in aggregate and scalar functions, then create reusable user-defined functions with CREATE FUNCTION.",
+        "ar": "استخدم الدوال التجميعية والقياسية المدمجة، ثم أنشئ دوالًا قابلة لإعادة الاستخدام عبر CREATE FUNCTION."
+      },
+      "code": "-- Built-in aggregates with parameters\nSELECT\n    COUNT(*)                     AS total_orders,\n    COUNT(DISTINCT customer_id)  AS unique_customers,\n    SUM(total)                   AS revenue,\n    ROUND(AVG(total), 2)         AS average_order,\n    MIN(total)                   AS smallest,\n    MAX(total)                   AS largest\nFROM orders\nWHERE created_at >= '2026-01-01';\n\n-- Scalar functions\nSELECT\n    UPPER(email)                          AS email_upper,\n    LENGTH(first_name)                    AS name_length,\n    COALESCE(phone, 'Not provided')       AS phone,\n    DATE_TRUNC('month', created_at)       AS signup_month,\n    EXTRACT(DAY FROM created_at)          AS signup_day\nFROM users;\n\n-- String aggregation per group\nSELECT\n    category,\n    STRING_AGG(name, ', ' ORDER BY name) AS products\nFROM products\nGROUP BY category;\n\n-- User-defined function (PostgreSQL)\nCREATE OR REPLACE FUNCTION order_total_with_tax(p_order_id INT, p_rate NUMERIC DEFAULT 0.16)\nRETURNS NUMERIC\nLANGUAGE sql\nSTABLE\nAS $$\n    SELECT ROUND(SUM(quantity * unit_price) * (1 + p_rate), 2)\n    FROM order_items\n    WHERE order_id = p_order_id;\n$$;\n\nSELECT order_total_with_tax(42)            AS full_price,\n       order_total_with_tax(42, 0.05)      AS discounted;"
+    },
+    {
+      "id": "sql-inner-join",
+      "language": "sql",
+      "topic": "Modern Idioms",
+      "title": { "en": "INNER JOIN with Aliases", "ar": "INNER JOIN مع الأسماء المستعارة" },
+      "description": {
+        "en": "Combine rows from customers and orders, filter by date range, and sort by total spend.",
+        "ar": "اجمع الصفوف من جدولي العملاء والطلبات، وصفِّ حسب نطاق زمني، ورتّب حسب إجمالي الإنفاق."
+      },
+      "code": "SELECT\n    c.id            AS customer_id,\n    c.full_name,\n    c.email,\n    COUNT(o.id)     AS order_count,\n    SUM(o.total)    AS total_spent\nFROM customers AS c\nINNER JOIN orders AS o\n    ON o.customer_id = c.id\nWHERE o.created_at >= '2026-01-01'\n  AND o.status = 'completed'\nGROUP BY c.id, c.full_name, c.email\nHAVING SUM(o.total) > 100\nORDER BY total_spent DESC\nLIMIT 20;"
+    },
+    {
+      "id": "sql-group-by",
+      "language": "sql",
+      "topic": "Modern Idioms",
+      "title": { "en": "GROUP BY & HAVING Analytics", "ar": "تحليلات GROUP BY و HAVING" },
+      "description": {
+        "en": "Aggregate sales per category and month, then keep only categories that exceed a revenue threshold.",
+        "ar": "جمّع المبيعات حسب الفئة والشهر، ثم أبقِ فقط الفئات التي تتجاوز حد الإيرادات المطلوب."
+      },
+      "code": "SELECT\n    p.category,\n    DATE_TRUNC('month', s.sold_at) AS month,\n    COUNT(*)                        AS units_sold,\n    SUM(s.quantity * p.price)       AS revenue,\n    ROUND(AVG(s.quantity), 2)       AS avg_quantity\nFROM sales AS s\nJOIN products AS p ON p.id = s.product_id\nWHERE s.sold_at >= CURRENT_DATE - INTERVAL '6 months'\nGROUP BY p.category, DATE_TRUNC('month', s.sold_at)\nHAVING SUM(s.quantity * p.price) >= 5000\nORDER BY month DESC, revenue DESC;"
+    },
+    {
+      "id": "sql-index",
+      "language": "sql",
+      "topic": "Modern Idioms",
+      "title": { "en": "Composite Indexes & Query Plans", "ar": "الفهارس المركبة وخطط الاستعلام" },
+      "description": {
+        "en": "Create a covering composite index and inspect the execution plan to confirm index usage.",
+        "ar": "أنشئ فهرسًا مركبًا مغطيًا وافحص خطة التنفيذ للتأكد من استخدامه."
+      },
+      "code": "-- Composite index matching the WHERE + ORDER BY pattern\nCREATE INDEX idx_orders_customer_status_date\n    ON orders (customer_id, status, created_at DESC)\n    INCLUDE (total);\n\n-- Covering index for the dashboard summary\nCREATE UNIQUE INDEX idx_users_email_lower\n    ON users (LOWER(email));\n\n-- Verify usage\nEXPLAIN ANALYZE\nSELECT customer_id, created_at, total\nFROM orders\nWHERE customer_id = 42\n  AND status = 'completed'\nORDER BY created_at DESC\nLIMIT 10;\n\n-- Remove an unused index safely\nDROP INDEX IF EXISTS idx_orders_created_at;"
+    },
+    {
+      "id": "html-basics",
+      "language": "htmlcss",
+      "topic": "Core Syntax & Output",
+      "title": { "en": "HTML & CSS Core: Document, Variables & Text", "ar": "أساسيات HTML و CSS: المستند والمتغيرات والنصوص" },
+      "description": {
+        "en": "A minimal HTML5 document with semantic sections, CSS custom properties, text styling and fluid typography.",
+        "ar": "مستند HTML5 مبسّط بأقسام دلالية ومتغيرات CSS وتنسيق النصوص وطباعة مرنة."
+      },
+      "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Core Syntax</title>\n  <style>\n    :root {\n      --bg: #0d1117;\n      --text: #c9d1d9;\n      --accent: #58a6ff;\n      --space: 1rem;\n    }\n\n    body {\n      margin: 0;\n      padding: var(--space);\n      background: var(--bg);\n      color: var(--text);\n      font-family: system-ui, sans-serif;\n      font-size: clamp(0.95rem, 1.4vw, 1.1rem);\n      line-height: 1.6;\n    }\n\n    h1 { color: var(--accent); letter-spacing: -0.02em; }\n    .muted { color: #8b949e; font-size: 0.85rem; }\n  </style>\n</head>\n<body>\n  <header>\n    <h1>SyntaxHub</h1>\n    <p class=\"muted\">Designed &amp; Developed by Ali Durra</p>\n  </header>\n\n  <main>\n    <section>\n      <h2>Semantic structure</h2>\n      <p>Variables, colors and spacing are all CSS custom properties.</p>\n    </section>\n  </main>\n\n  <footer class=\"muted\">&copy; All Rights Reserved</footer>\n</body>\n</html>"
+    },
+    {
+      "id": "css-control-flow",
+      "language": "htmlcss",
+      "topic": "Control Flow",
+      "title": { "en": "Conditional CSS: @media, @supports & @container", "ar": "CSS الشرطي: @media و @supports و @container" },
+      "description": {
+        "en": "Branch styles on conditions: media queries, feature detection, container queries, prefers-reduced-motion and the modern range syntax.",
+        "ar": "غيّر الأنماط حسب الشروط: استعلامات الوسائط واكتشاف الميزات واستعلامات الحاوية وتقليل الحركة وصيغة النطاق الحديثة."
+      },
+      "code": "<div class=\"card\">Responsive & conditional</div>\n\n<style>\n  /* Base (mobile-first) styles */\n  .card {\n    padding: 1rem;\n    background: #161b22;\n    border: 1px solid #30363d;\n    border-radius: 12px;\n  }\n\n  /* Media query: breakpoint at 768px */\n  @media (min-width: 768px) {\n    .card { padding: 2rem; }\n  }\n\n  /* Modern range syntax */\n  @media (480px <= width <= 900px) {\n    .card { border-color: #58a6ff; }\n  }\n\n  /* Feature detection */\n  @supports (display: grid) {\n    .card { display: grid; gap: 1rem; }\n  }\n\n  /* Container query (parent must opt in) */\n  .wrapper { container-type: inline-size; }\n  @container (min-width: 400px) {\n    .card { grid-template-columns: 1fr 1fr; }\n  }\n\n  /* Respect user motion preferences */\n  @media (prefers-reduced-motion: reduce) {\n    .card { transition: none; }\n  }\n\n  /* Dark-mode preference */\n  @media (prefers-color-scheme: light) {\n    .card { background: #ffffff; color: #1f2328; }\n  }\n</style>"
+    },
+    {
+      "id": "css-loops",
+      "language": "htmlcss",
+      "topic": "Loops & Iteration",
+      "title": { "en": "Repetition in CSS: Repeat, Lists & Generated Content", "ar": "التكرار في CSS: repeat والقوائم والمحتوى المولّد" },
+      "description": {
+        "en": "CSS has no loops, so repetition is done with grid `repeat()`, nth-child pattern selectors, counters, and custom properties for theming.",
+        "ar": "لا تحتوي CSS على حلقات، لذا يتم التكرار عبر repeat() في Grid ومحددات nth-child والعدادات والمتغيرات لتبديل السمات."
+      },
+      "code": "<ul class=\"steps\">\n  <li>Install</li>\n  <li>Configure</li>\n  <li>Build</li>\n  <li>Deploy</li>\n</ul>\n\n<div class=\"swatches\"></div>\n\n<style>\n  /* Repeat a track N times */\n  .steps {\n    display: grid;\n    gap: 8px;\n    grid-template-columns: repeat(4, minmax(120px, 1fr));\n  }\n\n  /* Iterate every 2nd / 3rd item with nth-child */\n  .steps li:nth-child(2n) { background: #161b22; }\n  .steps li:nth-child(3n) { border-left: 3px solid #58a6ff; }\n\n  /* Auto-generate index numbers with counters */\n  .steps { counter-reset: step; }\n  .steps li { counter-increment: step; }\n  .steps li::before { content: counter(step) \". \"; color: #8b949e; }\n\n  /* \"Loop\" over colors by consuming custom properties */\n  .swatches {\n    --c1: #58a6ff;\n    --c2: #3fb950;\n    --c3: #d29922;\n    display: flex;\n    gap: 8px;\n  }\n  .swatches::before,\n  .swatches::after {\n    content: \"\";\n    width: 48px;\n    height: 48px;\n    border-radius: 8px;\n  }\n  .swatches::before { background: var(--c1); }\n  .swatches::after  { background: var(--c2); }\n</style>"
+    },
+    {
+      "id": "css-functions",
+      "language": "htmlcss",
+      "topic": "Functions & Methods",
+      "title": { "en": "CSS Functions & Custom Properties", "ar": "دوال CSS والمتغيرات المخصصة" },
+      "description": {
+        "en": "Use calc(), clamp(), min()/max(), color functions, transforms, and custom properties with fallbacks as reusable arguments.",
+        "ar": "استخدم calc() و clamp() و min()/max() ودوال الألوان والتحويلات، والمتغيرات المخصصة مع قيم بديلة كمعاملات قابلة لإعادة الاستخدام."
+      },
+      "code": ".button {\n  /* Custom properties act as function arguments */\n  --accent: #58a6ff;\n  --pad-x: 1rem;\n\n  /* calc() mixes units */\n  width: calc(100% - 2 * var(--pad-x));\n  padding: calc(var(--pad-x) / 2) var(--pad-x);\n\n  /* clamp(min, preferred, max) = fluid sizing */\n  font-size: clamp(0.85rem, 1.6vw, 1rem);\n\n  /* min() / max() pick a bound */\n  max-width: min(420px, 90vw);\n  min-height: max(44px, 5vh);\n\n  /* Modern color functions */\n  color: rgb(255 255 255 / 0.92);\n  background: hsl(from var(--accent) h s l / 0.15);\n  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);\n\n  /* Fallback syntax for custom properties */\n  border-radius: var(--radius, 10px);\n\n  /* Transform functions */\n  transform: translateY(0) scale(1);\n  transition: transform 180ms ease, background-color 180ms ease;\n}\n\n.button:hover {\n  transform: translateY(-2px) scale(1.01);\n  background: color-mix(in srgb, var(--accent) 22%, transparent);\n}"
+    },
+    {
+      "id": "css-flex-center",
+      "language": "htmlcss",
+      "topic": "Modern Idioms",
+      "title": { "en": "Perfect Centering with Flexbox", "ar": "التوسيط المثالي باستخدام Flexbox" },
+      "description": {
+        "en": "Center any element horizontally and vertically with three lines of Flexbox — including modal and full-page layouts.",
+        "ar": "وسّط أي عنصر أفقيًا وعموديًا بثلاثة أسطر من Flexbox — بما في ذلك النوافذ المنبثقة وتخطيطات الصفحة الكاملة."
+      },
+      "code": "<div class=\"stage\">\n  <div class=\"card\">Centered with Flexbox</div>\n</div>\n\n<style>\n.stage {\n  display: flex;\n  align-items: center;      /* vertical */\n  justify-content: center;  /* horizontal */\n  min-height: 100dvh;\n  background: #0d1117;\n}\n\n.card {\n  padding: 2rem 3rem;\n  border-radius: 12px;\n  background: #161b22;\n  color: #c9d1d9;\n  border: 1px solid #30363d;\n}\n</style>"
+    },
+    {
+      "id": "css-grid-layout",
+      "language": "htmlcss",
+      "topic": "Modern Idioms",
+      "title": { "en": "Responsive CSS Grid Layout", "ar": "تخطيط CSS Grid متجاوب" },
+      "description": {
+        "en": "Build an auto-responsive card grid using repeat, minmax, and auto-fit without media queries.",
+        "ar": "ابنِ شبكة بطاقات متجاوبة تلقائيًا باستخدام repeat و minmax و auto-fit دون استعلامات وسائط."
+      },
+      "code": "<section class=\"grid\">\n  <article class=\"tile\">One</article>\n  <article class=\"tile\">Two</article>\n  <article class=\"tile\">Three</article>\n  <article class=\"tile\">Four</article>\n</section>\n\n<style>\n.grid {\n  display: grid;\n  gap: 1.25rem;\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\n  padding: 1.5rem;\n}\n\n.tile {\n  display: grid;\n  place-items: center;\n  min-height: 160px;\n  border-radius: 12px;\n  background: #161b22;\n  border: 1px solid #30363d;\n  transition: transform 0.2s ease, border-color 0.2s ease;\n}\n\n.tile:hover {\n  transform: translateY(-4px);\n  border-color: #58a6ff;\n}\n</style>"
+    },
+    {
+      "id": "css-variables",
+      "language": "htmlcss",
+      "topic": "Modern Idioms",
+      "title": { "en": "CSS Custom Properties & Theming", "ar": "متغيرات CSS والسمات" },
+      "description": {
+        "en": "Define design tokens as custom properties, then switch themes by overriding a single data attribute.",
+        "ar": "عرّف رموز التصميم كمتغيرات CSS، ثم بدّل السمات بتجاوز سمة بيانات واحدة."
+      },
+      "code": ":root {\n  --bg: #0d1117;\n  --surface: #161b22;\n  --text: #c9d1d9;\n  --muted: #8b949e;\n  --border: #30363d;\n  --accent: #58a6ff;\n  --radius: 12px;\n  --transition: 0.2s ease;\n}\n\n[data-theme=\"light\"] {\n  --bg: #f6f8fa;\n  --surface: #ffffff;\n  --text: #1f2328;\n  --muted: #57606a;\n  --border: #d0d7de;\n  --accent: #0969da;\n}\n\nbody {\n  background: var(--bg);\n  color: var(--text);\n  transition: background var(--transition), color var(--transition);\n}\n\n.card {\n  background: var(--surface);\n  border: 1px solid var(--border);\n  border-radius: var(--radius);\n  padding: 1.5rem;\n}\n\n.card:hover {\n  border-color: var(--accent);\n}"
+    }
+  
+  ]
+}
