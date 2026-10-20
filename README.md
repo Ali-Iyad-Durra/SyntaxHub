@@ -32,5 +32,28 @@ Built with an ultra-clean, eye-comfort dark theme, real-time search, interactive
 No installation or complex build tools required!
 
 1. Clone the repository:
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/SyntaxHub.git](https://github.com/YOUR_USERNAME/SyntaxHub.git)
+   git clone https://github.com/AliDurra/SyntaxHub.git
+2. Open index.html directly in your browser, or use VS Code Live Server.
+
+---
+
+## 👤 Author
+
+**Designed & Developed with ❤️ by Ali Durra**
+
+- **GitHub:** https://github.com/AliDurra
+- **LinkedIn:** https://linkedin.com/in/AliDurra
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+Bash:
+git init
+git add .
+git commit -m "Initial release of SyntaxHub v1.0"
+git branch -M main
+git remote add origin https://github.com/AliDurra/SyntaxHub.git
+git push -u origin main
