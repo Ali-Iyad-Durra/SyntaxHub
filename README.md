@@ -1,10 +1,10 @@
 # ⚡ SyntaxHub
-<!-- GitHub Badges -->
-![GitHub release](https://img.shields.io/github/v/release/AliDurra/SyntaxHub?style=flat-square&color=blue)
-![GitHub license](https://img.shields.io/github/license/AliDurra/SyntaxHub?style=flat-square&color=green)
+<!-- Badges -->
 ![Cloudflare Pages](https://img.shields.io/badge/Deployment-Cloudflare_Pages-orange?style=flat-square&logo=cloudflare)
 ![PWA Ready](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa)
 ![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS-yellow?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
 ---
 
 ## ✨ Key Features
