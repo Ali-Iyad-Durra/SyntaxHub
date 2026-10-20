@@ -1,9 +1,10 @@
 # ⚡ SyntaxHub
-
-> **SyntaxHub** is a clean, modern, high-performance developer cheatsheet hub designed to provide instant access to core syntax, programming fundamentals, and essential code snippets across multiple languages.
-
-Built with an ultra-clean, eye-comfort dark theme, real-time search, interactive language filters, and offline capability.
-
+<!-- GitHub Badges -->
+![GitHub release](https://img.shields.io/github/v/release/AliDurra/SyntaxHub?style=flat-square&color=blue)
+![GitHub license](https://img.shields.io/github/license/AliDurra/SyntaxHub?style=flat-square&color=green)
+![Cloudflare Pages](https://img.shields.io/badge/Deployment-Cloudflare_Pages-orange?style=flat-square&logo=cloudflare)
+![PWA Ready](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa)
+![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS-yellow?style=flat-square)
 ---
 
 ## ✨ Key Features
