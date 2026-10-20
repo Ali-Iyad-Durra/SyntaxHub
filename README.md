@@ -46,6 +46,13 @@ No installation or complex build tools required!
 
 ---
 
+## 🌐 Live Demo
+
+Check out the live production version of **SyntaxHub**:
+👉 [syntaxhub.pages.dev](https://syntaxhub.pages.dev/)
+
+---
+
 ## 📄 License
 
 This project is open source and available under the MIT License.
