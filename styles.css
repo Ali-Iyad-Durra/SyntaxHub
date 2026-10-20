@@ -495,6 +495,50 @@ a {
   color: var(--muted);
 }
 
+/* Result counter turns accent-coloured while a filter is active */
+.stats[data-filtered="true"] .stat:first-child strong {
+  color: var(--accent-strong);
+}
+
+/* ---------- Card / Compact view toggle ---------- */
+.view-toggle {
+  display: inline-flex;
+  margin-top: 22px;
+  padding: 3px;
+  gap: 2px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 7px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition:
+    color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.view-btn:hover {
+  color: var(--text-strong);
+  background: rgba(139, 148, 158, 0.1);
+}
+
+.view-btn.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  box-shadow:
+    0 0 0 1px rgba(88, 166, 255, 0.32) inset,
+    0 0 14px rgba(88, 166, 255, 0.18);
+}
+
 .stats strong {
   color: var(--text);
   font-weight: 600;
@@ -598,6 +642,104 @@ a {
 }
 
 /* ============================================================
+   Topic (tag) filter strip
+   ============================================================ */
+.tag-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding-bottom: 6px;
+}
+
+.tag-bar[hidden] {
+  display: none;
+}
+
+.tag-chip {
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.tag-chip:hover {
+  color: var(--text-strong);
+  border-color: #444c56;
+  background: var(--surface);
+}
+
+.tag-chip.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-color: rgba(88, 166, 255, 0.45);
+}
+
+.tag-chip-all {
+  font-family: var(--font-sans);
+  color: var(--text);
+}
+
+.tag-chip-more {
+  font-family: var(--font-sans);
+  color: var(--accent);
+  border-style: dashed;
+}
+
+/* Tag badges inside a card */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin-top: 2px;
+}
+
+.card-tags[hidden] {
+  display: none;
+}
+
+.tag-badge {
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(139, 148, 158, 0.07);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.tag-badge:hover {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-color: rgba(88, 166, 255, 0.4);
+}
+
+.tag-badge.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-color: rgba(88, 166, 255, 0.5);
+}
+
+[dir="rtl"] .tag-badge,
+[dir="rtl"] .tag-chip {
+  unicode-bidi: isolate;
+}
+
+/* ============================================================
    Snippets
    ============================================================ */
 .section {
@@ -693,11 +835,41 @@ a {
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   flex-shrink: 0;
 }
 
-/* Favorite star */
+/* Share this snippet (copies a deep link) */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0 4px;
+  border-radius: 8px;
+  color: #6e7681;
+  border: 1px solid transparent;
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.share-btn:hover {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-color: rgba(88, 166, 255, 0.3);
+}
+
+.share-btn.is-copied {
+  color: var(--success);
+  background: rgba(63, 185, 80, 0.1);
+  border-color: rgba(63, 185, 80, 0.4);
+}
+
 .fav-btn {
   display: grid;
   place-items: center;
@@ -1257,6 +1429,38 @@ body.modal-open {
   unicode-bidi: plaintext;
 }
 
+/* Latin shortcuts/monospace tokens must not be reordered by the RTL bidi algorithm.
+   Note: keep the logical side by clearing `direction` on the position only —
+   `direction: ltr` would flip inset-inline-end physically. */
+[dir="rtl"] .search-hint,
+[dir="rtl"] .tab-count {
+  unicode-bidi: isolate-override;
+  direction: ltr;
+  /* direction:ltr re-resolves inset-inline-end physically, so pin RTL explicitly */
+}
+
+[dir="rtl"] .search-hint {
+  inset-inline-end: 14px;
+  inset-inline-start: auto;
+}
+
+[dir="rtl"] .search-hint {
+  text-align: center;
+  padding-inline: 6px;
+}
+
+/* Tag chips mix Latin tails (#async) with Arabic labels. Isolating the token
+   keeps "#" glued to its word instead of drifting to the far side. */
+[dir="rtl"] .tag-chip,
+[dir="rtl"] .tag-badge {
+  unicode-bidi: plaintext;
+}
+
+/* Cards: share then star to the right of the language chip in RTL, mirroring LTR */
+[dir="rtl"] .card-actions {
+  flex-direction: row-reverse;
+}
+
 /* ============================================================
    Responsive
    ============================================================ */
@@ -1356,4 +1560,217 @@ body.modal-open {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ============================================================
+   Compact view — dense list for quick scanning
+   ============================================================ */
+.snippets-grid.is-compact {
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.snippets-grid.is-compact .snippet-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    "head lang actions"
+    "desc desc desc";
+  align-items: center;
+  gap: 2px 14px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-soft);
+  background: transparent;
+  transform: none;
+  animation: none;
+}
+
+.snippets-grid.is-compact .snippet-card:last-child {
+  border-bottom: 0;
+}
+
+.snippets-grid.is-compact .snippet-card:hover {
+  background: var(--surface-2);
+  border-color: var(--border-soft);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Compact row: the head and heading dissolve so title, tag row, description
+   and actions are placed directly in the card's own 2-row grid. */
+.snippets-grid.is-compact .card-head,
+.snippets-grid.is-compact .card-heading {
+  display: contents;
+}
+
+/* Pin inline slots to the start so text aligns left (right in RTL) */
+.snippets-grid.is-compact .card-title,
+.snippets-grid.is-compact .card-desc {
+  justify-self: stretch;
+  text-align: start;
+}
+
+.snippets-grid.is-compact .topic-chip {
+  display: none;
+}
+
+.snippets-grid.is-compact .card-title {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.snippets-grid.is-compact .card-desc {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.snippets-grid.is-compact .card-tags {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  min-width: 0;
+  max-width: 55%;
+  gap: 0;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+}
+
+[dir="rtl"] .snippets-grid.is-compact .card-tags {
+  mask-image: linear-gradient(to left, #000 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, #000 85%, transparent 100%);
+}
+
+/* Keep compact rows to two tags so nothing can wrap the row taller */
+.snippets-grid.is-compact .card-tags li:nth-child(n + 3) {
+  display: none;
+}
+
+.snippets-grid.is-compact .tag-badge {
+  border: 0;
+  background: none;
+  padding: 0 4px;
+  font-size: 0.68rem;
+  color: #6e7681;
+}
+
+.snippets-grid.is-compact .tag-badge:hover {
+  color: var(--accent);
+  background: none;
+}
+
+/* Code, footer and the full card chrome are not needed in compact rows */
+.snippets-grid.is-compact .code-box,
+.snippets-grid.is-compact .card-foot {
+  display: none;
+}
+
+.snippets-grid.is-compact .card-actions {
+  grid-area: actions;
+  gap: 0;
+}
+
+/* In compact rows the tags sit in column 2, on the title line, right-aligned */
+.snippets-grid.is-compact .card-tags {
+  justify-self: end;
+}
+
+.snippets-grid.is-compact .lang-chip {
+  grid-area: lang;
+  font-size: 0.62rem;
+  padding: 1px 7px;
+}
+
+.snippets-grid.is-compact .card-title::after {
+  content: "";
+}
+/* Whole compact row opens the full snippet (the arrow button is hidden) */
+.snippets-grid.is-compact .snippet-card {
+  cursor: pointer;
+}
+
+[dir="rtl"] .snippets-grid.is-compact .card-title {
+  text-align: right;
+}
+
+@media (max-width: 720px) {
+  .snippets-grid.is-compact {
+    border-radius: var(--radius);
+    overflow: visible;
+  }
+
+  .snippets-grid.is-compact .snippet-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "head actions"
+      "desc desc";
+    padding: 10px 12px;
+    gap: 4px 10px;
+  }
+
+  .snippets-grid.is-compact .lang-chip {
+    display: none;
+  }
+
+  .snippets-grid.is-compact .card-actions {
+    justify-self: end;
+  }
+}
+
+/* ============================================================
+   Deep-link highlight ( #snippet=<id> )
+   ============================================================ */
+.snippet-card.is-target {
+  animation: target-pulse 1.3s ease-out 2;
+  border-color: rgba(88, 166, 255, 0.7);
+}
+
+@keyframes target-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(88, 166, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(88, 166, 255, 0);
+  }
+}
+
+.snippet-card.is-target .card-title {
+  color: var(--accent-strong);
+}
+
+/* Share button inside the modal header */
+.modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-header .share-btn {
+  height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  color: var(--muted);
 }

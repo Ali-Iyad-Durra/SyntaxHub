@@ -197,6 +197,37 @@
               ><strong id="languageCount">0</strong>
               <span data-i18n="statLanguages">languages</span></span
             >
+            <span class="stat-dot" aria-hidden="true"></span>
+            <span class="stat">
+              <strong id="tagCount">0</strong>
+              <span data-i18n="statTags">topics</span>
+            </span>
+          </div>
+
+          <!-- View mode: card (default) or compact list -->
+          <div class="view-toggle" id="viewToggle" role="group" aria-label="View mode" data-i18n-aria="viewMode">
+            <button type="button" class="view-btn is-active" data-view="card" aria-pressed="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+              </svg>
+              <span data-i18n="viewCard">Cards</span>
+            </button>
+            <button type="button" class="view-btn" data-view="compact" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              <span data-i18n="viewCompact">Compact</span>
+            </button>
           </div>
         </div>
       </section>
@@ -209,6 +240,17 @@
         data-i18n-aria="filterAria"
       >
         <!-- Tabs are generated dynamically from data/snippets.json -->
+      </nav>
+
+      <!-- ============ TAG FILTER ============ -->
+      <nav
+        class="container tag-bar"
+        id="tagBar"
+        aria-label="Topic filters"
+        data-i18n-aria="tagFilterAria"
+        hidden
+      >
+        <!-- Tag chips are generated from the data -->
       </nav>
 
       <!-- ============ SNIPPETS ============ -->
@@ -293,6 +335,14 @@
         <header class="modal-header">
           <div class="modal-meta">
             <span class="lang-chip" id="modalLang"></span>
+            <button type="button" class="share-btn" data-share aria-label="Copy link" data-i18n-aria="shareAria">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.1 0l3-3a5 5 0 0 0-7.1-7.1L11.6 4.3"></path>
+                <path d="M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.4-1.4"></path>
+              </svg>
+              <span class="share-label" data-i18n="share">Share</span>
+            </button>
           </div>
           <h3 class="modal-title" id="modalTitle"></h3>
           <p class="modal-desc" id="modalDesc"></p>
