@@ -41,8 +41,8 @@ No installation or complex build tools required!
 
 **Designed & Developed with ❤️ by Ali Durra**
 
-- **GitHub:** https://github.com/AliDurra
-- **LinkedIn:** https://linkedin.com/in/AliDurra
+- **GitHub:** https://github.com/Ali-Iyad-Durra/
+- **LinkedIn:** https://linkedin.com/in/ali-durra
 
 ---
 
